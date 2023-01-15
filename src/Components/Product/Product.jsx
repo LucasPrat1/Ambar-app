@@ -41,7 +41,7 @@ const Product = () => {
                 <Button backgroundColor={'#303030'} color={'#fff'} >Go to Cart</Button>
               </Link>
             </div>
-          </div>
+          </div>*
         </div>
       )}
     </>
