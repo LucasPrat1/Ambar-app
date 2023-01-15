@@ -36,9 +36,9 @@ const Product = () => {
             <p className={styles.price}>$ {product.price}</p>
             <p className={styles.description} >{product.description}</p>
             <div className={styles.containerButtons}>
-              <Link className={styles.buttonAdd} to='/cart'>
+              {/* <Link className={styles.buttonAdd} to='/cart'> */}
                 <Button onClick={() => dispatch(addItem(product)) }><i className="fa fa-cart-plus me-2" />Add to Cart</Button>
-              </Link>
+              {/* </Link> */}
               <Link className={styles.buttonAdd} to='/cart'>
                 <Button backgroundColor={'#303030'} color={'#fff'} >Go to Cart</Button>
               </Link>
