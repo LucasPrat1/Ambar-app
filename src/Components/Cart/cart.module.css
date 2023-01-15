@@ -1,0 +1,50 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+table {
+  margin: 30px 0px;
+  padding: 0 30px;
+  width: 100%;
+}
+
+tr {
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  background-color: #b6b8d675;
+  color: #030453;
+}
+
+tr:hover {
+  background-color: #d2d4f575;
+}
+
+td {
+  text-align: center;
+  padding: 10px;
+}
+
+th {
+  font-size: 25px;
+  text-align: center;
+  padding: 10px;
+}
+
+tr img {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.total {
+  font-weight: 700;
+  text-align: center;
+}
+
+.containerButtonCheckout {
+  margin: 20px;
+}

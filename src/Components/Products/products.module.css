@@ -1,0 +1,28 @@
+.loading {
+    text-align: center;
+    padding: 50px;
+}
+
+h2 {
+    text-align: center;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.containerCards {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    flex: auto;
+    flex-wrap: wrap;
+}
+
+.containerButtons {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    align-content: center;
+    flex-wrap: wrap;
+}

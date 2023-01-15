@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+img {
+    width: 45%;
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.back {
+    color: #000000;
+    text-decoration: none;
+}
+
+.back:hover {
+    color: #505050;
+}
+
+.containerInfo {
+    width: 45%;
+    padding: 20px 0;
+}
+
+.containerInfo h4 {
+    margin: 20px 0;
+    text-transform: uppercase;
+    color: #808080;
+}
+
+.rating {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.price {
+    margin: 10px 0;
+    font-size: 30px;
+    font-weight: 800;
+    color: #505050;
+}
+
+.description {
+    color: #303030;
+    margin: 10px 20px 10px 0;
+}
+
+.containerButtons {
+    display: flex;
+    gap: 20px;
+}
+
+.containerButtons a {
+    text-decoration: none;
+}
