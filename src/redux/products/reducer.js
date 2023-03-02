@@ -26,7 +26,8 @@ export const productReducer = (state = initialState, action) => {
     case GET_PRODUCTS_PENDING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: false
       };
     case GET_PRODUCTS_SUCCESS:
       return {

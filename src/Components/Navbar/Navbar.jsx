@@ -1,10 +1,25 @@
 import React from 'react'
 // import Button from '../Shared/Buttons/Buttons';
-import { NavLink } from 'react-router-dom';
+import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+// import { signOut } from 'firebase/auth'
+import firebaseApp from '../../firebase';
+
 
 const Navbar = () => {
   const cart = useSelector((state) => state.cart.cart)
+  const user = useSelector((state) => state.auth.user)
+
+  const handleExit = () => {
+    firebaseApp.auth().signOut().then(() => {
+      // setUser()
+      redirect("/");
+      alert('Log Out Successfully');
+    }).catch((error) => {
+      console.error(error)
+    });
+  }
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
@@ -27,17 +42,28 @@ const Navbar = () => {
               <NavLink className="nav-link" to="/contact">Contact</NavLink>
             </li>
           </ul>
-          <div className="buttons">
-            <NavLink to="/login" className="btn btn-outline-dark ms-2">
-            <i className="fa fa-sign-in me-1"></i>Login
-            </NavLink>
-            <NavLink to="/register" className="btn btn-outline-dark ms-2">
-            <i className="fa fa-user-plus me-1"></i>Register
-            </NavLink>
-            <NavLink to="/cart" className="btn btn-outline-dark ms-2">
-            <i className="fa fa-shopping-cart me-1"></i>Cart ({cart.length})
-            </NavLink>
-          </div>
+          {
+            user ? (
+              <div className="buttons">
+                <span>Welcome {user.name}</span>
+                <NavLink to="/cart" className="btn btn-outline-dark ms-2">
+                  <i className="fa fa-shopping-cart me-1"></i>Cart ({cart.length})
+                </NavLink>
+                <button onClick={() => handleExit()} className="btn btn-outline-dark ms-2">
+                  <i className="fa fa-sign-in me-1"></i>Exit
+                </button>
+              </div>
+            ) : (
+              <div className="buttons">
+                <NavLink to="/login" className="btn btn-outline-dark ms-2">
+                  <i className="fa fa-sign-in me-1"></i>Login
+                </NavLink>
+                {/* <NavLink to="/register" className="btn btn-outline-dark ms-2">
+                <i className="fa fa-user-plus me-1"></i>Register
+                </NavLink> */}
+              </div>
+            )
+          }
         </div>
       </div>
     </nav>
