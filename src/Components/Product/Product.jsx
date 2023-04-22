@@ -25,11 +25,11 @@ const Product = () => {
         <Loader show={isLoading} />
       ) : (
         <div className={styles.container}>
-          <img src={product.image} alt={product.title} />
+          <img src={product.image} alt={product.name} />
           <div className={styles.containerInfo}>
             <Link onClick={() => window.history.back()} className={styles.back} >go back</Link>
             <h4>{product.category}</h4>
-            <h1>{product.title}</h1>
+            <h1>{product.name}</h1>
             <p className={styles.rating}>
               Rating {product.rating && product.rating.rate} <i className="fa fa-star" />
             </p>

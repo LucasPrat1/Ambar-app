@@ -18,7 +18,7 @@
   text-align: center;
   background-color: #ffffff;
   border-radius: 5px;
-  max-width: 50%;
+  max-width: 70%;
 }
 
 .btnX {
@@ -27,19 +27,12 @@
   border: none;
   padding-top: 5px;
   cursor: pointer;
+  color: #373867;
+  background-color: #ffffff;
+  font-size: 1rem;
 }
 
 .content {
-  font-weight: 700;
-  font-size: 25px;
-  color: #373867;
-  text-shadow: 2px 2px 4px #00000070;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 30px;
-}
-
-.content input {
-  width: 500px;
+  font-weight: bold;
+  padding: 1rem 2rem 2rem;
 }

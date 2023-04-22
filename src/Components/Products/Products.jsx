@@ -46,7 +46,7 @@ const Products = () => {
           {mounted ? (
             <div className={styles.containerCards}>
               {filter.map((product) => {
-                return <Card product={product} />
+                return <Card key={product._id} product={product} />
               })}
             </div>
           ) : (

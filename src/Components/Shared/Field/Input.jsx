@@ -10,7 +10,7 @@ const Input = ({ type, name, label, register, valueOptions, error, disabled }) =
           <select
             name={name}
             {...register(name)}
-            className={error ? styles.errorRed : styles.input}
+            className={error ? styles.inputError : styles.input}
             disabled={disabled && disabled}
           >
             {valueOptions.map((item) => (
@@ -31,7 +31,7 @@ const Input = ({ type, name, label, register, valueOptions, error, disabled }) =
             label={label}
             name={name}
             {...register(name)}
-            className={error ? styles.errorRed : styles.input}
+            className={error ? styles.inputError : styles.input}
             disabled={disabled && disabled}
           ></input>
           {error && <p className={styles.error}>{error}</p>}

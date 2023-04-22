@@ -62,7 +62,7 @@ const Cart = () => {
                     </td>
                     <td>
                       <Button onClick={() => handleDelete(item.id)} borderRadius={'100%'} height={'30px'} width={'30px'} >
-                        <i class="fa fa-minus" />
+                        <i className="fa fa-minus" />
                       </Button>
                     </td>
                   </tr>

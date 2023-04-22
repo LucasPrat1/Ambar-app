@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    width: 100%;
+    background-color: #f3f3f3;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container h1 {
+    font-size: 2rem;
+    color: #202020;
+    margin: 1rem 2rem;
+}
+
+.container ul {
+    display: flex;
+    min-width: 300px;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+}
+
+.navItem a {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.navItem {
+    list-style: none;
+}
+
+.navItem a:hover,a:focus {
+    color: #4337ad;
+}
+
+.navbarButtons{
+    display: flex;
+    gap: 0.5rem;
+    margin: 0 2rem 0 0;
+}

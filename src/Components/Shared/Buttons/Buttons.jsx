@@ -6,6 +6,7 @@ const Button = ({
   color,
   borderRadius,
   width,
+  maxWidth,
   height,
   fontSize,
   onClick,
@@ -19,7 +20,8 @@ const Button = ({
         backgroundColor,
         borderRadius,
         height,
-        width
+        width,
+        maxWidth
       }}
     >
       <p className={styles.text} style={{ color, fontSize }}>

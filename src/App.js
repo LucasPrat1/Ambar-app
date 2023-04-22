@@ -5,31 +5,33 @@ import Navbar from './Components/Navbar/Navbar';
 import Products from './Components/Products/Products';
 import Product from './Components/Product/Product';
 import Cart from './Components/Cart/Cart';
-import Auth from './Components/Auth/Auth';
+import SignIn from './Components/SignIn/SignIn';
+import SignUp from './Components/SignUp/SingUp'
 import { Route, Routes } from 'react-router-dom';
-import { onAuthStateChanged, getAuth } from 'firebase/auth'
-// import firebaseApp from './firebase';
+import { onIdTokenChanged, getAuth } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './redux/auth/thunks'
-
-// import firebase from 'firebase/compat/app';
+import { cleanUser } from './redux/auth/actions';
 
 function App() {
-  const user = useSelector((state) => state.auth.user)
   const auth = getAuth();
   const dispatch = useDispatch();
 
-  // console.log('auth.currentUser', auth.currentUser);
-  // auth.currentUser && dispatch(setAuth(auth.currentUser));
-
   useEffect(() => {
-    onAuthStateChanged( auth, (us) => {
-      console.log('us', us);
-      dispatch(setAuth(us));
+    onIdTokenChanged(auth, async (user) => {
+      dispatch(cleanUser());;
+      if (user) {
+        const token = await user.getIdToken();
+        dispatch(setAuth(token));
+      }
     });
   }, [auth, dispatch])
 
-  console.log('user en app', user);
+
+  // const reduxAuth = useSelector((state) => state.auth)
+  // const user = useSelector((state) => state.auth.user)
+  // console.log('reduxAuth', reduxAuth)
+  // console.log('user en app', user);
 
   return (
     <>
@@ -39,7 +41,8 @@ function App() {
         <Route exact path='/products' element={<Products />} />
         <Route exact path='/products/:id' element={<Product />} />
         <Route exact path='/cart' element={<Cart />} />
-        <Route exact path='/login' element={<Auth />} />
+        <Route exact path='/signin' element={<SignIn />} />
+        <Route exact path='/signup' element={<SignUp />} />
       </Routes>
     </>
   );

@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './modal.module.css';
 
-const Modal = ({ children, isOpen, handleClose }) => {
-  if (!isOpen) {
+const Modal = ({ children, show, handleClose }) => {
+  if (!show) {
     return null;
   }
 
@@ -10,7 +10,7 @@ const Modal = ({ children, isOpen, handleClose }) => {
     <div className={styles.shade}>
       <div className={styles.billboard}>
         <button onClick={handleClose} className={styles.btnX}>
-          <i class="fa-regular fa-circle-xmark me-1"></i>
+          <i className="fa-solid fa-circle-xmark"></i>
         </button>
         <div className={styles.content}>{children}</div>
       </div>
