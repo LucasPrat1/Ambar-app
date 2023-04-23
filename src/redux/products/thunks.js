@@ -18,8 +18,7 @@ export const getProducts = () => {
   return async (dispatch) => {
     dispatch(getProductsPending());
     try {
-      // const response = await fetch(`https://fakestoreapi.com/products`);
-      const response = await fetch(`http://localhost:5000/api/products`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
       const res = await response.json();
       dispatch(getProductsSuccess(res.data));
       return res.data;
@@ -33,7 +32,7 @@ export const getProductsId = (id) => {
   return async (dispatch) => {
     dispatch(getProductsPending());
     try {
-      const response = await fetch(`http://localhost:5000/api/products/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${id}`);
       const res = await response.json();
       dispatch(getProductIdSuccess(res));
       return res;
@@ -47,7 +46,7 @@ export const addProduct = (product) => {
   return async (dispatch) => {
     dispatch(addProductPending());
     try {
-      const response = await fetch('http://localhost:5000/api/products', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
@@ -69,7 +68,7 @@ export const deleteProduct = (id) => {
   return async (dispatch) => {
     dispatch(deleteProductPending());
     try {
-      await fetch(`http://localhost:5000/api/products${id}`, {
+      await fetch(`${process.env.REACT_APP_API_URL}/products${id}`, {
         method: 'DELETE'
       });
       dispatch(deleteProductSuccess(id));
@@ -90,7 +89,7 @@ export const editProduct = (product) => {
   return async (dispatch) => {
     dispatch(editProductPending());
     try {
-      const response = await fetch(`http://localhost:5000/api/products${product.id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products${product.id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
