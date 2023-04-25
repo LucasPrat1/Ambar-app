@@ -8,6 +8,9 @@ import {
     ADD_USER_SUCCESS,
     ADD_USER_PENDING,
     ADD_USER_ERROR,
+    EDIT_USER_ERROR,
+    EDIT_USER_PENDING,
+    EDIT_USER_SUCCESS,
     CLEAN_USER
 } from './constants';
 
@@ -65,6 +68,25 @@ export const addUserSuccess = (data) => {
 export const addUserError = () => {
     return {
         type: ADD_USER_ERROR,
+    };
+};
+
+export const editUserPending = () => {
+    return {
+        type: EDIT_USER_PENDING
+    };
+};
+
+export const editUserSuccess = (data) => {
+    return {
+        type: EDIT_USER_SUCCESS,
+        payload: data
+    };
+};
+
+export const editUserError = () => {
+    return {
+        type: EDIT_USER_ERROR,
     };
 };
 

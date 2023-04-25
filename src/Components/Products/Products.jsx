@@ -18,6 +18,8 @@ const Products = () => {
   const isLoading = useSelector((state) => state.products.isLoading);
   const data = useSelector((state) => state.products.list);
 
+  // console.log('data', data)
+
   useEffect(() => {
     setFilter(data);
     setMounted(true);
@@ -30,31 +32,26 @@ const Products = () => {
 
   return (
     <>
-      {isLoading ? ( <Loader show={isLoading} />
-      ) : (
-        <section className={styles.card}>
-          <div>
-            <h2>Lates Products</h2>
-            <div className={styles.containerButtons}>
-              <Button onClick={() => setFilter(data)}>All</Button>
-              <Button onClick={() => filterProducts("men's clothing")}>Men's Clothing</Button>
-              <Button onClick={() => filterProducts("women's clothing")}>Women's Clothing</Button>
-              <Button onClick={() => filterProducts("jewelery")}>Jewelery</Button>
-              <Button onClick={() => filterProducts("electronics")}>Electronics</Button>
-            </div>
+      <Loader show={isLoading} />
+      <section className={styles.card}>
+        <div>
+          <h2>Lates Products</h2>
+          <div className={styles.containerButtons}>
+            <Button onClick={() => setFilter(data)}>All</Button>
+            <Button onClick={() => filterProducts("men's clothing")}>Men's Clothing</Button>
+            <Button onClick={() => filterProducts("women's clothing")}>Women's Clothing</Button>
+            <Button onClick={() => filterProducts("jewelery")}>Jewelery</Button>
+            <Button onClick={() => filterProducts("electronics")}>Electronics</Button>
           </div>
-          {mounted ? (
-            <div className={styles.containerCards}>
-              {filter.map((product) => {
-                return <Card key={product._id} product={product} />
-              })}
-            </div>
-          ) : (
-            <Loader show={isLoading} />
-          )
-          }
-        </section>
-      )}
+        </div>
+        {mounted && (
+          <div className={styles.containerCards}>
+            {filter.map((product) => {
+              return <Card key={product._id} product={product} />
+            })}
+          </div>
+        )}
+      </section>
     </>
   )
 };

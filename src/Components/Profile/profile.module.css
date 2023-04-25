@@ -20,11 +20,7 @@
   margin: 1rem;
 }
 
-.form input {
-  min-width: 400px;
-  /* max-width: 400px; */
-}
-
-.container p {
-  margin: 2rem;
+.containerButtons {
+  display: flex;
+  gap: 1rem;
 }

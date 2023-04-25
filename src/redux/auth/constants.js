@@ -10,5 +10,9 @@ export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
 export const ADD_USER_PENDING = 'ADD_USER_PENDING';
 export const ADD_USER_ERROR = 'ADD_USER_ERROR';
 
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_PENDING = 'EDIT_USER_PENDING';
+export const EDIT_USER_ERROR = 'EDIT_USER_ERROR';
+
 export const CLEAN_USER = 'CLEAN_USER';
 

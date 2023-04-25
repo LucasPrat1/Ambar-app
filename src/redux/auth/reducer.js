@@ -8,6 +8,9 @@ import {
     ADD_USER_PENDING,
     ADD_USER_SUCCESS,
     ADD_USER_ERROR,
+    EDIT_USER_ERROR,
+    EDIT_USER_PENDING,
+    EDIT_USER_SUCCESS,
     CLEAN_USER
 } from './constants';
 
@@ -80,6 +83,28 @@ export const authReducer = (state = initialState, action) => {
             };
         }
         case ADD_USER_ERROR: {
+            return {
+                ...state,
+                isLoading: false,
+                error: true
+            };
+        }
+        case EDIT_USER_PENDING: {
+            return {
+                ...state,
+                isLoading: true,
+                error: false
+            };
+        }
+        case EDIT_USER_SUCCESS: {
+            return {
+                ...state,
+                user: action.payload,
+                isLoading: false,
+                error: false
+            };
+        }
+        case EDIT_USER_ERROR: {
             return {
                 ...state,
                 isLoading: false,

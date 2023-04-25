@@ -8,7 +8,10 @@ import {
   addUserError,
   addUserPending,
   addUserSuccess,
-  cleanUser
+  cleanUser,
+  editUserPending,
+  editUserSuccess,
+  editUserError
 } from './actions';
 // eslint-disable-next-line no-unused-vars
 import firebaseApp from '../../firebase/';
@@ -25,7 +28,8 @@ export const login = (credentials) => {
       dispatch(loginSuccess(token));
       return { token: token, error: false, message: "Login successfully" };
     } catch (error) {
-      return dispatch(loginError(error.toString()));
+      dispatch(loginError());
+      return { error: true, message: error.toString() };
     }
   };
 };
@@ -38,9 +42,11 @@ export const setAuth = (token) => {
         headers: { token }
       });
       const response = await resp.json();
-      return dispatch(setAuthenticationSuccess(response.data));
+      dispatch(setAuthenticationSuccess(response.data));
+      return { error: false, message: "Authentication successfully" };
     } catch (error) {
-      return dispatch(setAuthenticationError(error.toString()));
+      dispatch(setAuthenticationError());
+      return { error: true, message: error.toString() };
     }
   };
 };
@@ -72,6 +78,8 @@ export const addUser = (user) => {
           name: user.name,
           phone: user.phone,
           email: user.email,
+          city: user.city,
+          address: user.address,
           password: user.password,
         })
       });
@@ -82,13 +90,52 @@ export const addUser = (user) => {
       dispatch(addUserSuccess(res.data));
       return {
         data: res.data,
+        error: false,
         message: res.message
       };
     } catch (error) {
-      dispatch(addUserError(error.toString()));
+      dispatch(addUserError());
       return {
         error: true,
-        message: error
+        message: error.toString()
+      };
+    }
+  };
+};
+
+export const editUser = (user, _id) => {
+  return async (dispatch) => {
+    dispatch(editUserPending());
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          city: user.city,
+          address: user.address,
+          isAdmin: false
+        })
+      });
+      const res = await response.json();
+      if (res.error) {
+        throw res.message;
+      }
+      dispatch(editUserSuccess(res.data));
+      return {
+        data: res.data,
+        error: false,
+        message: res.message
+      };
+    } catch (error) {
+      dispatch(editUserError());
+      return {
+        error: true,
+        message: error.toString()
       };
     }
   };

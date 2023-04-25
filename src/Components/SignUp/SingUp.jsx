@@ -45,6 +45,30 @@ const SingUp = () => {
         'string.empty': 'This field is required'
       })
       .required(),
+    city: joi
+      .string()
+      .regex(/^[a-zA-Z0-9\s]*$/)
+      .min(3)
+      .max(30)
+      .messages({
+        'string.pattern.base': 'City must contain only letters and numbers',
+        'string.min': 'City is too short',
+        'string.max': 'City is too long',
+        'string.empty': 'This field is required'
+      })
+      .required(),
+    address: joi
+      .string()
+      .regex(/^[a-zA-Z0-9\s]*$/)
+      .min(3)
+      .max(30)
+      .messages({
+        'string.pattern.base': 'Address must contain only letters and numbers',
+        'string.min': 'Address is too short',
+        'string.max': 'Address is too long',
+        'string.empty': 'This field is required'
+      })
+      .required(),
     password: joi
       .string()
       .regex(/^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/)
@@ -74,9 +98,9 @@ const SingUp = () => {
   const onSubmit = async (data) => {
     console.log("data en onSubmit", data)
     try {
-      const user = await dispatch(addUser(data));
-      if (user.error) {
-        setChildrenModal(user.message);
+      const resp = await dispatch(addUser(data));
+      if (resp.error) {
+        setChildrenModal(resp.message);
         setShowModal(true);
       } else {
         setChildrenModal('Register successfully');
@@ -91,13 +115,7 @@ const SingUp = () => {
     <>
       <Loader show={isLoading} />
       <section>
-        <Modal
-          show={showModal}
-          handleClose={() => {
-            setShowModal(false);
-            navigate('/signin');
-          }}
-        >
+        <Modal show={showModal} handleClose={() => { setShowModal(false); navigate('/signin') }}>
           {childrenModal}
         </Modal>
         <div className={styles.container}>
@@ -125,6 +143,18 @@ const SingUp = () => {
               error={errors.email?.message}
             />
             <Input
+              type={'text'}
+              name={'city'}
+              label={'City'}
+              register={register}
+              error={errors.city?.message} />
+            <Input
+              type={'text'}
+              name={'address'}
+              label={'Address'}
+              register={register}
+              error={errors.address?.message} />
+            <Input
               type={'password'}
               name={'password'}
               label={'Password'}
@@ -138,11 +168,11 @@ const SingUp = () => {
               register={register}
               error={errors.rPassword?.message}
             />
+          </form>
             <Button width={'50%'} maxWidth={'200px'} onClick={handleSubmit(onSubmit)}>Confirm</Button>
             <p>Do you already have an account?
               <Link to={'/signin'}>  Log in now!</Link>
             </p>
-          </form>
         </div>
       </section>
     </>

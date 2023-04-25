@@ -12,6 +12,7 @@ import { onIdTokenChanged, getAuth } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth } from './redux/auth/thunks'
 import { cleanUser } from './redux/auth/actions';
+import Profile from './Components/Profile/Profile';
 
 function App() {
   const auth = getAuth();
@@ -19,16 +20,17 @@ function App() {
 
   useEffect(() => {
     onIdTokenChanged(auth, async (user) => {
-      dispatch(cleanUser());;
+      dispatch(cleanUser());
       if (user) {
         const token = await user.getIdToken();
+        // console.log('token', token)
         dispatch(setAuth(token));
       }
     });
   }, [auth, dispatch])
 
 
-  // const reduxAuth = useSelector((state) => state.auth)
+  // const token = useSelector((state) => state.auth.token)
   // const user = useSelector((state) => state.auth.user)
   // console.log('reduxAuth', reduxAuth)
   // console.log('user en app', user);
@@ -43,6 +45,7 @@ function App() {
         <Route exact path='/cart' element={<Cart />} />
         <Route exact path='/signin' element={<SignIn />} />
         <Route exact path='/signup' element={<SignUp />} />
+        <Route exact path='/profile/:uid' element={<Profile />} />
       </Routes>
     </>
   );
