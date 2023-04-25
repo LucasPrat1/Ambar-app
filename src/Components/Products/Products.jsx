@@ -18,8 +18,6 @@ const Products = () => {
   const isLoading = useSelector((state) => state.products.isLoading);
   const data = useSelector((state) => state.products.list);
 
-  // console.log('data', data)
-
   useEffect(() => {
     setFilter(data);
     setMounted(true);
@@ -38,8 +36,8 @@ const Products = () => {
           <h2>Lates Products</h2>
           <div className={styles.containerButtons}>
             <Button onClick={() => setFilter(data)}>All</Button>
-            <Button onClick={() => filterProducts("men's clothing")}>Men's Clothing</Button>
-            <Button onClick={() => filterProducts("women's clothing")}>Women's Clothing</Button>
+            <Button onClick={() => filterProducts("Pants")}>Pants</Button>
+            <Button onClick={() => filterProducts("Shirts")}>Shirts</Button>
             <Button onClick={() => filterProducts("jewelery")}>Jewelery</Button>
             <Button onClick={() => filterProducts("electronics")}>Electronics</Button>
           </div>

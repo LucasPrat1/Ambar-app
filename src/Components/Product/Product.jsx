@@ -21,29 +21,26 @@ const Product = () => {
   console.log('product', product)
   return (
     <>
-      {isLoading ? (
-        <Loader show={isLoading} />
-      ) : (
-        <div className={styles.container}>
-          <img src={product.image} alt={product.name} />
-          <div className={styles.containerInfo}>
-            <Link onClick={() => window.history.back()} className={styles.back} >go back</Link>
-            <h4>{product.category}</h4>
-            <h1>{product.name}</h1>
-            <p className={styles.rating}>
-              Rating {product.rating && product.rating.rate} <i className="fa fa-star" />
-            </p>
-            <p className={styles.price}>$ {product.price}</p>
-            <p className={styles.description} >{product.description}</p>
-            <div className={styles.containerButtons}>
-              <Button onClick={() => dispatch(addItem(product))}><i className="fa fa-cart-plus me-2" />Add to Cart</Button>
-              <Link className={styles.buttonAdd} to='/cart'>
-                <Button backgroundColor={'#303030'} color={'#fff'} >Go to Cart</Button>
-              </Link>
-            </div>
-          </div>*
+      <Loader show={isLoading} />
+      <div className={styles.container}>
+        <img src={product.image} alt={product.name} />
+        <div className={styles.containerInfo}>
+          <Link onClick={() => window.history.back()} className={styles.back} >go back</Link>
+          <h4>{product.category}</h4>
+          <h1>{product.name}</h1>
+          <p className={styles.rating}>
+            Rating {product.rating && product.rating.rate} <i className="fa fa-star" />
+          </p>
+          <p className={styles.price}>$ {product.price}</p>
+          <p className={styles.description} >{product.description}</p>
+          <div className={styles.containerButtons}>
+            <Button onClick={() => dispatch(addItem(product))}><i className="fa fa-cart-plus me-2" />Add to Cart</Button>
+            <Link className={styles.buttonAdd} to='/cart'>
+              <Button backgroundColor={'#303030'} color={'#fff'} >Go to Cart</Button>
+            </Link>
+          </div>
         </div>
-      )}
+      </div>
     </>
   )
 };
