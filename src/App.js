@@ -23,7 +23,6 @@ function App() {
       dispatch(cleanUser());
       if (user) {
         const token = await user.getIdToken();
-        // console.log('token', token)
         dispatch(setAuth(token));
       }
     });
@@ -41,7 +40,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route exact path='/products' element={<Products />} />
-        <Route exact path='/products/:id' element={<Product />} />
+        <Route exact path='/product/:id' element={<Product />} />
         <Route exact path='/cart' element={<Cart />} />
         <Route exact path='/signin' element={<SignIn />} />
         <Route exact path='/signup' element={<SignUp />} />
