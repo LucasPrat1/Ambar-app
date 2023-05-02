@@ -1,0 +1,114 @@
+.alertSuccess {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 10rem;
+  max-width: 20rem;
+  background-color: lightgreen;
+  color: darkgreen;
+  text-align: center;
+  border-radius: 0.3rem;
+  border-bottom: 3px solid darkgreen;
+  box-shadow: 2px 2px 5px #00000065;
+  padding: 0.5rem;
+  position: fixed;
+  z-index: 1;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
+  animation: fadein 0.5s, fadeout 0.5s 3s;
+}
+
+.alertError {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 10rem;
+  max-width: 20rem;
+  background-color: lightpink;
+  color: darkred;
+  text-align: center;
+  border-radius: 0.3rem;
+  box-shadow: 2px 2px 5px #00000065;
+  border-bottom: 3px solid darkred;
+  padding: 0.5rem;
+  position: fixed;
+  z-index: 1;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
+  animation: fadein 0.5s, fadeout 0.5s 3s;
+}
+
+.alertWarning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 10rem;
+  max-width: 20rem;
+  background-color: #fafab4;
+  color: darkgoldenrod;
+  text-align: center;
+  border-radius: 0.3rem;
+  border-bottom: 3px solid darkgoldenrod;
+  box-shadow: 2px 2px 5px #00000065;
+  padding: 0.5rem;
+  position: fixed;
+  z-index: 1;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
+  animation: fadein 0.5s, fadeout 0.5s 3s;
+}
+
+.alertInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 10rem;
+  max-width: 20rem;
+  background-color: lightblue;
+  color: darkblue;
+  text-align: center;
+  border-radius: 0.3rem;
+  border-bottom: 3px solid darkblue;
+  box-shadow: 2px 2px 5px #00000065;
+  padding: 0.5rem;
+  position: fixed;
+  z-index: 1;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
+  animation: fadein 0.5s, fadeout 0.5s 3s;
+}
+
+.btnX {
+  padding: 0;
+  margin: 0 0 0 1rem;
+  border: none;
+  cursor: pointer;
+  color: #00000085;
+  background-color: #00000000;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}

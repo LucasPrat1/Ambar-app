@@ -31,9 +31,9 @@ const Products = () => {
   return (
     <>
       <Loader show={isLoading} />
-      <section className={styles.card}>
+      <section className={styles.products}>
         <div>
-          <h2>Lates Products</h2>
+          <h2>Featured Products</h2>
           <div className={styles.containerButtons}>
             <Button onClick={() => setFilter(data)}>All</Button>
             <Button onClick={() => filterProducts("Pants")}>Pants</Button>

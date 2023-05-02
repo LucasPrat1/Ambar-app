@@ -39,11 +39,11 @@ export const cartReducer = (state = initialState, action) => {
         error: false
       };
     case ADD_ITEM_SUCCESS:
-      const exist = state.cart.find((i) => i.id === action.payload.id)
+      const exist = state.cart.find((i) => i._id === action.payload._id)
       if (exist) {
         return {
           ...state,
-          cart: state.cart.map((i) => i.id === action.payload.id ? {...i, qty: i.qty + 1} : i ),
+          cart: state.cart.map((i) => i._id === action.payload._id ? {...i, qty: i.qty + 1} : i ),
           isLoading: false,
           error: false
         };
@@ -73,18 +73,18 @@ export const cartReducer = (state = initialState, action) => {
         error: false
       };
     case DELETE_ITEM_SUCCESS:
-      const exist1 = state.cart.find((i) => i.id === action.payload)
+      const exist1 = state.cart.find((i) => i._id === action.payload)
       if (exist1.qty === 1) {
         return {
           ...state,
-          cart: state.cart.filter((i) => i.id !== exist1.id),
+          cart: state.cart.filter((i) => i._id !== exist1._id),
           isLoading: false,
           error: false
         };
       } else {
         return {
           ...state,
-          cart: state.cart.map((i) => i.id === action.payload ? {...i, qty: i.qty - 1} : i ),
+          cart: state.cart.map((i) => i._id === action.payload ? {...i, qty: i.qty - 1} : i ),
           isLoading: false,
           error: false
         };

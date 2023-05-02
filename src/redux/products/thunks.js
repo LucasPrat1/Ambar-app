@@ -34,7 +34,7 @@ export const getProductsId = (id) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${id}`);
       const res = await response.json();
-      dispatch(getProductIdSuccess(res));
+      dispatch(getProductIdSuccess(res.data));
       return res;
     } catch (error) {
       dispatch(getProductsError(error.toString()));
