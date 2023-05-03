@@ -4,7 +4,7 @@ import { Loader, Button, Rating, Alert } from '../../Components/Shared/index';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsId } from "../../redux/products/thunks"
-import { addItem } from "../../redux/cart/thunks";
+import { addItem, deleteItem } from "../../redux/cart/thunks";
 
 
 const Product = () => {
@@ -15,6 +15,8 @@ const Product = () => {
   const isLoading = useSelector((state) => state.products.isLoading);
   const product = useSelector((state) => state.products.product);
   const auth = useSelector((state) => state.auth);
+  const cart = useSelector((state) => state.cart.cart);
+
 
   const [showAlert, setShowAlert] = useState(false)
   const [typeAlert, setTypeAlert] = useState('')
@@ -25,14 +27,14 @@ const Product = () => {
     dispatch(getProductsId(id));
   }, [dispatch, id])
 
-  const onClick = async (event) => {
+  const handleAdd = async () => {
     if (!auth.token) {
       navigate('/signin')
     } else {
       const resp = await dispatch(addItem(product))
       if (!resp.error) {
         setChildrenAlert(resp.message)
-        setTypeAlert('info')
+        setTypeAlert('success')
         setShowAlert(true);
       } else {
         setChildrenAlert(resp.message)
@@ -42,7 +44,28 @@ const Product = () => {
     }
   }
 
+  const handleDelete = async () => {
+    if (!auth.token) {
+      navigate('/signin')
+    } else {
+      const resp = await dispatch(deleteItem(product._id))
+      if (!resp.error) {
+        setChildrenAlert(resp.message)
+        setTypeAlert('warning')
+        setShowAlert(true);
+      } else {
+        setChildrenAlert(resp.message)
+        setTypeAlert('error')
+        setShowAlert(true);
+      }
+    }
+  }
+
+  const item = cart.find((item) => item._id === product._id);
+
   console.log('product', product)
+  console.log('cart', cart)
+
   return (
     <>
       <Loader show={isLoading} />
@@ -65,12 +88,22 @@ const Product = () => {
                 <div className={styles.inStock}>
                   In Stock
                 </div>
-                <div className={styles.containerButtons}>
-                  <Button onClick={() => onClick()}><i className="fa fa-cart-plus me-2" />Add to Cart</Button>
-                  <Link className={styles.buttonAdd} to={auth.token ? ('/cart') : ('/signin')}>
-                    <Button backgroundColor={'#303030'} color={'#fff'}>Go to Cart</Button>
-                  </Link>
-                </div>
+                {item ? (
+                  <><div className={styles.containerButtons}>
+                    <input className={styles.input} type="text" value={item.qty} />
+                    <Button width={'6rem'} onClick={() => handleAdd()}><i className="fa-solid fa-cart-plus" /> Add</Button>
+                    <Button width={'6rem'} onClick={() => handleDelete()}><i class="fa-solid fa-delete-left" /> Delete</Button>
+                  </div><Link className={styles.buttonAdd} to={auth.token ? ('/cart') : ('/signin')}>
+                      <Button width={'10rem'}  backgroundColor={'#303030'} color={'#fff'}>Go to Cart</Button>
+                    </Link></>
+                ) : (
+                  <div className={styles.containerButtons}>
+                    <Button onClick={() => handleAdd()}><i className="fa fa-cart-plus me-2" /> Add to Cart</Button>
+                    <Link className={styles.buttonAdd} to={auth.token ? ('/cart') : ('/signin')}>
+                      <Button backgroundColor={'#303030'} color={'#fff'}>Go to Cart</Button>
+                    </Link>
+                  </div>
+                )}
               </>
             ) : (
               <div className={styles.unavailable}>

@@ -41,19 +41,16 @@ export const deleteItem = (itemId) => {
   return async (dispatch) => {
     dispatch(deleteItemPending());
     try {
-      // await fetch(`${process.env.REACT_APP_API_URL}/projects/${_id}`, {
-      //   method: 'DELETE'
-      // });
       dispatch(deleteItemSuccess(itemId));
       return {
         error: false,
         message: "item deleted successfully"
       };
     } catch (error) {
-      dispatch(deleteItemError(error.toString()));
+      dispatch(deleteItemError());
       return {
         error: true,
-        message: error
+        message: error.toString()
       };
     }
   };
