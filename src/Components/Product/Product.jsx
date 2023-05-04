@@ -22,6 +22,7 @@ const Product = () => {
   const [typeAlert, setTypeAlert] = useState('')
   const [childrenAlert, setChildrenAlert] = useState('')
 
+  const item = cart.find((item) => item._id === product._id);
 
   useEffect(() => {
     dispatch(getProductsId(id));
@@ -60,11 +61,6 @@ const Product = () => {
       }
     }
   }
-
-  const item = cart.find((item) => item._id === product._id);
-
-  console.log('product', product)
-  console.log('cart', cart)
 
   return (
     <>
