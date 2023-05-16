@@ -31,7 +31,7 @@ const Navbar = () => {
       <Modal show={showModal} handleClose={() => { setShowModal(false); navigate('/') }} >
         {childrenModal}
       </Modal>
-      <nav className={styles.container}>
+      <header className={styles.container}>
         <NavLink to="/"><h1> AMBAR </h1></NavLink>
         <div className={styles.navbarCollapse}>
           <ul>
@@ -86,7 +86,7 @@ const Navbar = () => {
             )
           }
         </div>
-      </nav>
+      </header>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './input.module.css';
 
-const Input = ({ type, name, label, register, valueOptions, error, disabled }) => {
+const Input = ({ type, name, label, register, valueOptions, valueRadio, error, disabled }) => {
   return (
     <>
       {type === 'select' ? (
@@ -13,11 +13,9 @@ const Input = ({ type, name, label, register, valueOptions, error, disabled }) =
             className={error ? styles.inputError : styles.input}
             disabled={disabled && disabled}
           >
-            {valueOptions.map((item) => (
-              <option key={item._id} value={item._id}>
-                {item.first_name
-                  ? item.first_name + ' ' + item.last_name
-                  : item.project_name || item.description}
+            {valueOptions.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
               </option>
             ))}
           </select>
@@ -32,6 +30,7 @@ const Input = ({ type, name, label, register, valueOptions, error, disabled }) =
             name={name}
             {...register(name)}
             className={error ? styles.inputError : styles.input}
+            value={valueRadio && valueRadio}
             disabled={disabled && disabled}
           ></input>
           {error && <p className={styles.error}>{error}</p>}

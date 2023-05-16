@@ -86,9 +86,9 @@ const Product = () => {
                 </div>
                 {item ? (
                   <><div className={styles.containerButtons}>
-                    <input className={styles.input} type="text" value={item.qty} />
+                    <input className={styles.input} type="text" value={item.qty} readOnly/>
                     <Button width={'6rem'} onClick={() => handleAdd()}><i className="fa-solid fa-cart-plus" /> Add</Button>
-                    <Button width={'6rem'} onClick={() => handleDelete()}><i class="fa-solid fa-delete-left" /> Delete</Button>
+                    <Button width={'6rem'} onClick={() => handleDelete()}><i className="fa-solid fa-delete-left" /> Delete</Button>
                   </div><Link className={styles.buttonAdd} to={auth.token ? ('/cart') : ('/signin')}>
                       <Button width={'10rem'}  backgroundColor={'#303030'} color={'#fff'}>Go to Cart</Button>
                     </Link></>

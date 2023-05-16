@@ -21,9 +21,10 @@ export const getProducts = () => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
       const res = await response.json();
       dispatch(getProductsSuccess(res.data));
-      return res.data;
+      return { error: false, message: res.message, data: res.data};
     } catch (error) {
-      dispatch(getProductsError(error.toString()));
+      dispatch(getProductsError());
+      return { error: true, message: error.toString() };
     }
   };
 };
@@ -35,9 +36,10 @@ export const getProductsId = (id) => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${id}`);
       const res = await response.json();
       dispatch(getProductIdSuccess(res.data));
-      return res;
+      return { error: false, message: res.message, data: res.data};
     } catch (error) {
-      dispatch(getProductsError(error.toString()));
+      dispatch(getProductsError());
+      return { error: true, message: error.toString() };
     }
   };
 };
@@ -72,15 +74,10 @@ export const deleteProduct = (id) => {
         method: 'DELETE'
       });
       dispatch(deleteProductSuccess(id));
-      return {
-        error: false
-      };
+      return { error: false };
     } catch (error) {
-      dispatch(deleteProductError(error.toString()));
-      return {
-        error: true,
-        message: error
-      };
+      dispatch(deleteProductError());
+      return { error: true, message: error.toString() };
     }
   };
 };
@@ -89,7 +86,7 @@ export const editProduct = (product) => {
   return async (dispatch) => {
     dispatch(editProductPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/products${product.id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${product._id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
@@ -102,8 +99,8 @@ export const editProduct = (product) => {
       dispatch(editProductSuccess(res));
       return { error: false, message: res.message };
     } catch (error) {
-      dispatch(editProductError(error.toString()));
-      return { error: true, message: error };
+      dispatch(editProductError());
+      return { error: true, message: error.toString() };
     }
   };
 };

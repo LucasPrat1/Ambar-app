@@ -5,6 +5,9 @@ import {
   ADD_ITEM_PENDING,
   ADD_ITEM_SUCCESS,
   ADD_ITEM_ERROR,
+  CLEAR_ITEMS_ERROR,
+  CLEAR_ITEMS_PENDING,
+  CLEAR_ITEMS_SUCCESS
 } from './constants';
 
 const initialState = {
@@ -15,23 +18,25 @@ const initialState = {
 
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case GET_CART_PENDING:
-    //   return {
-    //     ...state,
-    //     isLoading: true
-    //   };
-    // case GET_CART_SUCCESS:
-    //   return {
-    //     ...state,
-    //     list: action.payload,
-    //     isLoading: false
-    //   };
-    // case GET_CART_ERROR:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     error: true
-    //   };
+    case CLEAR_ITEMS_PENDING:
+      return {
+        ...state,
+        isLoading: true,
+        error: false
+      };
+    case CLEAR_ITEMS_SUCCESS:
+      return {
+        ...state,
+        cart: [],
+        isLoading: false,
+        error: false
+      };
+    case CLEAR_ITEMS_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      };
     case ADD_ITEM_PENDING:
       return {
         ...state,

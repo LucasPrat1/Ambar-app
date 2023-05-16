@@ -1,28 +1,14 @@
 import {
-  // getItemsPending,
-  // getItemsSuccess,
-  // getItemsError,
   deleteItemPending,
   deleteItemSuccess,
   deleteItemError,
   addItemPending,
   addItemSuccess,
   addItemError,
+  clearItemsError,
+  clearItemsPending,
+  clearItemsSuccess
 } from './actions';
-
-// export const getItems = () => {
-//   return async (dispatch) => {
-//     dispatch(getItemsPending());
-//     try {
-//       const response = await fetch(`${process.env.REACT_APP_API_URL}/projects`);
-//       const res = await response.json();
-//       dispatch(getItemsSuccess(res.data));
-//       return response.data;
-//     } catch (error) {
-//       dispatch(getItemsError(error.toString()));
-//     }
-//   };
-// };
 
 export const addItem = (item) => {
   return async (dispatch) => {
@@ -52,6 +38,19 @@ export const deleteItem = (itemId) => {
         error: true,
         message: error.toString()
       };
+    }
+  };
+};
+
+export const clearItems = () => {
+  return async (dispatch) => {
+    dispatch(clearItemsPending());
+    try {
+      dispatch(clearItemsSuccess());
+      return { error: false, message: "Cart successfully clear" };
+    } catch (error) {
+      dispatch(clearItemsError());
+      return { error: true, message: error.toString() };
     }
   };
 };

@@ -7,6 +7,7 @@ import Product from './Components/Product/Product';
 import Cart from './Components/Cart/Cart';
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SingUp'
+import OrderPDF from './Components/OrderPDF/OrderPDF'
 import { Route, Routes } from 'react-router-dom';
 import { onIdTokenChanged, getAuth } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,6 +46,7 @@ function App() {
         <Route exact path='/signin' element={<SignIn />} />
         <Route exact path='/signup' element={<SignUp />} />
         <Route exact path='/profile/:uid' element={<Profile />} />
+        <Route exact path='/order/:id' element={<OrderPDF />} />
       </Routes>
     </>
   );

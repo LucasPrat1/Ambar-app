@@ -5,6 +5,9 @@ import {
   ADD_ITEM_PENDING,
   ADD_ITEM_SUCCESS,
   ADD_ITEM_ERROR,
+  CLEAR_ITEMS_ERROR,
+  CLEAR_ITEMS_PENDING,
+  CLEAR_ITEMS_SUCCESS
 } from './constants';
 
 export const deleteItemPending = () => ({
@@ -31,4 +34,16 @@ export const addItemSuccess = (item) => ({
 
 export const addItemError = () => ({
   type: ADD_ITEM_ERROR
+});
+
+export const clearItemsPending = () => ({
+  type: CLEAR_ITEMS_PENDING
+});
+
+export const clearItemsSuccess = () => ({
+  type: CLEAR_ITEMS_SUCCESS,
+});
+
+export const clearItemsError = () => ({
+  type: CLEAR_ITEMS_ERROR
 });

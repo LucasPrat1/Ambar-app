@@ -1,0 +1,23 @@
+.containerUserInfo, .containerDeliveryInfo, .containerPaidInfo {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: 1px solid #404040;
+    border-radius: 0.5rem;
+}
+
+.form h4 {
+    width: 4rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form label {
+    font-size: 0.7rem;
+}

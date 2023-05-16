@@ -1,78 +1,80 @@
 import {
-  GET_PRODUCTS_PENDING,
-  GET_PRODUCTS_SUCCESS,
-  GET_PRODUCTID_SUCCESS,
-  GET_PRODUCTS_ERROR,
-  DELETE_PRODUCT_PENDING,
-  DELETE_PRODUCT_SUCCESS,
-  DELETE_PRODUCT_ERROR,
-  ADD_PRODUCT_PENDING,
-  ADD_PRODUCT_SUCCESS,
-  ADD_PRODUCT_ERROR,
-  EDIT_PRODUCT_PENDING,
-  EDIT_PRODUCT_SUCCESS,
-  EDIT_PRODUCT_ERROR,
+  GET_ORDERS_ERROR,
+  GET_ORDERS_PENDING,
+  GET_ORDERS_SUCCESS,
+  GET_ORDERID_SUCCESS,
+  ADD_ORDER_ERROR,
+  ADD_ORDER_PENDING,
+  ADD_ORDER_SUCCESS,
+  DELETE_ORDER_ERROR,
+  DELETE_ORDER_PENDING,
+  DELETE_ORDER_SUCCESS,
+  EDIT_ORDER_ERROR,
+  EDIT_ORDER_PENDING,
+  EDIT_ORDER_SUCCESS
 } from './constants';
 
 const initialState = {
   list: [],
-  product: {},
+  order: {},
   isLoading: false,
   error: false
 };
 
-export const productReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PRODUCTS_PENDING:
+    case GET_ORDERS_PENDING:
       return {
         ...state,
         isLoading: true,
         error: false
       };
-    case GET_PRODUCTS_SUCCESS:
+    case GET_ORDERS_SUCCESS:
       return {
         ...state,
         list: action.payload,
-        isLoading: false
+        isLoading: false,
+        error: false
       };
-      case GET_PRODUCTID_SUCCESS:
-        return {
-          ...state,
-          product: action.payload,
-          isLoading: false
-        };
-    case GET_PRODUCTS_ERROR:
+    case GET_ORDERID_SUCCESS:
+      return {
+        ...state,
+        order: action.payload,
+        isLoading: false,
+        error: false
+      };
+    case GET_ORDERS_ERROR:
       return {
         ...state,
         isLoading: false,
         error: true
       };
-    case ADD_PRODUCT_PENDING:
+    case ADD_ORDER_PENDING:
       return {
         ...state,
         isLoading: true,
         error: false
       };
-    case ADD_PRODUCT_SUCCESS:
+    case ADD_ORDER_SUCCESS:
       return {
         ...state,
         list: [...state.list, action.payload],
         isLoading: false,
         error: false
       };
-    case ADD_PRODUCT_ERROR:
+    case ADD_ORDER_ERROR:
       return {
         ...state,
         isLoading: false,
         error: true
       };
-    case EDIT_PRODUCT_PENDING:
+    case EDIT_ORDER_PENDING:
       return {
         ...state,
         isLoading: true,
         error: false
       };
-    case EDIT_PRODUCT_SUCCESS:
+    case EDIT_ORDER_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -84,26 +86,26 @@ export const productReducer = (state = initialState, action) => {
           return p;
         })
       };
-    case EDIT_PRODUCT_ERROR:
+    case EDIT_ORDER_ERROR:
       return {
         ...state,
         isLoading: false,
         error: true
       };
-    case DELETE_PRODUCT_PENDING:
+    case DELETE_ORDER_PENDING:
       return {
         ...state,
         isLoading: true,
         error: false
       };
-    case DELETE_PRODUCT_SUCCESS:
+    case DELETE_ORDER_SUCCESS:
       return {
         ...state,
         list: state.list.filter((p) => p._id !== action.payload),
         isLoading: false,
         error: false
       };
-    case DELETE_PRODUCT_ERROR:
+    case DELETE_ORDER_ERROR:
       return {
         ...state,
         isLoading: false,
