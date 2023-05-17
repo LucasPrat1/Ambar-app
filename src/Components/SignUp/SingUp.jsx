@@ -3,19 +3,20 @@ import styles from './signUp.module.css'
 import joi from 'joi';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../redux/auth/thunks';
-import { Input, Button, Modal, Loader } from '../Shared/index';
+import { Input, Button, Alert, Loader } from '../Shared/index';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SingUp = () => {
-  const isLoading = useSelector((state) => state.auth.isLoading);
-
-  const [showModal, setShowModal] = useState(false);
-  const [childrenModal, setChildrenModal] = useState('');
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isLoading = useSelector((state) => state.auth.isLoading);
+
+  const [showAlert, setShowAlert] = useState(false)
+  const [typeAlert, setTypeAlert] = useState('')
+  const [childrenAlert, setChildrenAlert] = useState('')
 
   const schema = joi.object({
     name: joi
@@ -96,15 +97,20 @@ const SingUp = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log("data en onSubmit", data)
     try {
       const resp = await dispatch(addUser(data));
+      console.log('resp', resp)
       if (resp.error) {
-        setChildrenModal(resp.message);
-        setShowModal(true);
+        setChildrenAlert(resp.message);
+        setTypeAlert('error');
+        setShowAlert(true);
       } else {
-        setChildrenModal('Register successfully');
-        setShowModal(true);
+        setChildrenAlert(resp.message);
+        setTypeAlert('info');
+        setShowAlert(true);
+        setTimeout(() => {
+          navigate('/signin')
+        }, 1500);
       }
     } catch (error) {
       console.error(error);
@@ -115,9 +121,7 @@ const SingUp = () => {
     <>
       <Loader show={isLoading} />
       <section>
-        <Modal show={showModal} handleClose={() => { setShowModal(false); navigate('/signin') }}>
-          {childrenModal}
-        </Modal>
+        <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
         <div className={styles.container}>
           <h2>Sign Up</h2>
           <form className={styles.form}>
@@ -169,10 +173,10 @@ const SingUp = () => {
               error={errors.rPassword?.message}
             />
           </form>
-            <Button width={'50%'} maxWidth={'200px'} onClick={handleSubmit(onSubmit)}>Confirm</Button>
-            <p>Do you already have an account?
-              <Link to={'/signin'}>  Log in now!</Link>
-            </p>
+          <Button width={'50%'} maxWidth={'200px'} onClick={handleSubmit(onSubmit)}>Confirm</Button>
+          <p>Do you already have an account?
+            <Link to={'/signin'}>  Log in now!</Link>
+          </p>
         </div>
       </section>
     </>

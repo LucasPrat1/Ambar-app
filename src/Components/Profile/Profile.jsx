@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import styles from './profile.module.css'
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Input, Loader, Modal } from '../Shared';
+import { Button, Input, Loader, Modal, Alert } from '../Shared';
 import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
@@ -13,8 +13,19 @@ import OrderPDF from '../OrderPDF/OrderPDF';
 
 const Profile = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
+  const token = useSelector((state) => state.auth.token)
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/signin')
+    }
+  }, [navigate, token])
+
+  const [showAlert, setShowAlert] = useState(false)
+  const [typeAlert, setTypeAlert] = useState('')
+  const [childrenAlert, setChildrenAlert] = useState('')
   const [showModal, setShowModal] = useState(false);
   const [childrenModal, setChildrenModal] = useState('');
   const [edit, setEdit] = useState(false)
@@ -107,11 +118,14 @@ const Profile = () => {
     try {
       const resp = await dispatch(editUser(data, user._id));
       if (resp.error) {
-        setChildrenModal(resp.message);
-        setShowModal(true);
+        setChildrenAlert(resp.message);
+        setTypeAlert('error');
+        setShowAlert(true);
       } else {
-        setChildrenModal('Edited successfully');
-        setShowModal(true);
+        setChildrenAlert(resp.message);
+        setTypeAlert('success');
+        setShowAlert(true);
+        setEdit(false);
       }
     } catch (error) {
       console.error(error);
@@ -120,7 +134,7 @@ const Profile = () => {
 
   const onClick = (order) => {
     setChildrenModal(
-      <PDFViewer width={'800px'} height={'500px'}>
+      <PDFViewer width={'100%'} height={'100%'}>
         <OrderPDF order={order} />
       </PDFViewer>
     )
@@ -131,9 +145,14 @@ const Profile = () => {
     authLoading ? <Loader show={authLoading} /> :
       ordersLoading ? <Loader show={ordersLoading} /> :
         <section>
-          <Modal show={showModal} handleClose={() => { setShowModal(false)}} >
+          <Modal
+            show={showModal}
+            handleClose={() => { setShowModal(false) }}
+            size={{ width: "98%", height: "98%" }}
+          >
             {childrenModal}
           </Modal>
+          <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
           <div className={styles.container}>
             <h2>My Profile</h2>
             {edit ? (
@@ -171,8 +190,8 @@ const Profile = () => {
                     error={errors.address?.message} />
                 </form>
                 <div className={styles.containerButtons}>
-                  <Button width={'100px'} onClick={handleSubmit(onSubmit)}>Confirm</Button>
-                  <Button width={'100px'} onClick={() => setEdit(false)}>Cancel</Button>
+                  <Button width={'6rem'} onClick={handleSubmit(onSubmit)}>Confirm</Button>
+                  <Button width={'6rem'} onClick={() => setEdit(false)}>Cancel</Button>
                 </div>
               </>
             ) : (
@@ -215,7 +234,7 @@ const Profile = () => {
                     error={errors.address?.message} />
                 </form>
                 <div className={styles.containerButtons}>
-                  <Button width={'100px'} onClick={() => setEdit(true)}>Edit</Button>
+                  <Button width={'6rem'} onClick={() => setEdit(true)}>Edit</Button>
                 </div>
               </>
             )}

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { productReducer } from './products/reducer';
 import { cartReducer } from './cart/reducer';
 import { authReducer } from './auth/reducer';
-import {orderReducer} from './order/reducer'
+import { orderReducer } from './order/reducer'
 
 const rootReducer = combineReducers({
   products: productReducer,

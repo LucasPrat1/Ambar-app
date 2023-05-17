@@ -16,7 +16,6 @@ import {
 
 const initialState = {
   list: [],
-  order: {},
   isLoading: false,
   error: false
 };
@@ -39,7 +38,6 @@ export const orderReducer = (state = initialState, action) => {
     case GET_ORDERID_SUCCESS:
       return {
         ...state,
-        order: action.payload,
         isLoading: false,
         error: false
       };

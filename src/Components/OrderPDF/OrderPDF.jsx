@@ -78,7 +78,7 @@ const OrderPDF = ({ order }) => {
             </View>
             {order.items.map((item) => {
               return (
-                <View id={item.product._id} style={styles.itemRow}>
+                <View key={item.product._id} id={item.product._id} style={styles.itemRow}>
                   <Text>{item.qty}</Text>
                   <Text>{item.product.name} - {item.product.brand}</Text>
                   <Text>${item.product.price}</Text>

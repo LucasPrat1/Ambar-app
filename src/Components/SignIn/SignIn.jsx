@@ -6,11 +6,12 @@ import { useForm } from 'react-hook-form'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi';
 import { login } from '../../redux/auth/thunks';
-import { Button, Input, Loader, Modal } from '../Shared';
+import { Button, Input, Loader, Alert } from '../Shared';
 
 const SingIn = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [childrenModal, setChildrenModal] = useState('');
+  const [showAlert, setShowAlert] = useState(false)
+  const [typeAlert, setTypeAlert] = useState('')
+  const [childrenAlert, setChildrenAlert] = useState('')
 
   const isLoading = useSelector((state) => state.auth.isLoading);
 
@@ -53,12 +54,18 @@ const SingIn = () => {
   const onSubmit = async (data) => {
     try {
       const user = await dispatch(login(data));
-      if (user.type === 'LOGIN_ERROR') {
-        setChildrenModal(<p className={styles.invalidEmail}>Invalid email or password</p>);
-        setShowModal(true);
-        throw user.payload;
+      if (user.error) {
+        setChildrenAlert('Invalid email or password');
+        setTypeAlert('error');
+        setShowAlert(true);
+      } else {
+        setChildrenAlert(user.message);
+        setTypeAlert('info');
+        setShowAlert(true);
+        setTimeout(() => {
+          navigate('/')
+        }, 1500);
       }
-      navigate('/')
     } catch (error) {
       console.error(error);
     }
@@ -67,12 +74,7 @@ const SingIn = () => {
   return (
     <>
       <Loader show={isLoading} />
-      <Modal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-      >
-        {childrenModal}
-      </Modal>
+      <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
       <div className={styles.container}>
         <h2>Sing In</h2>
         <form className={styles.form}>

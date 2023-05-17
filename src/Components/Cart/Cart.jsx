@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { addItem, clearItems, deleteItem } from '../../redux/cart/thunks'
@@ -10,6 +10,15 @@ import Checkout from '../Checkout/Checkout'
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const token = useSelector((state) => state.auth.token)
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/signin')
+    }
+  }, [navigate, token])
+
 
   const [showCheckout, setShowCheckout] = useState(false)
 
@@ -51,12 +60,12 @@ const Cart = () => {
       if (window.confirm('Are you sure you want to empty your cart?')) {
         const resp = await dispatch(clearItems())
         if (!resp.error) {
-          setChildrenAlert(resp.message)
-          setTypeAlert('success')
+          setChildrenAlert(resp.message);
+          setTypeAlert('success');
           setShowAlert(true);
         } else {
-          setChildrenAlert(resp.message)
-          setTypeAlert('error')
+          setChildrenAlert(resp.message);
+          setTypeAlert('error');
           setShowAlert(true);
         }
       }

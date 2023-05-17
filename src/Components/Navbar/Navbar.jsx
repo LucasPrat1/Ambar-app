@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/thunks';
-import { Button, Modal } from '../../Components/Shared/index';
+import { Button, Alert } from '../../Components/Shared/index';
 
 
 
@@ -12,8 +12,8 @@ const Navbar = () => {
   const cart = useSelector((state) => state.cart.cart);
   const auth = useSelector((state) => state.auth);
 
-  const [showModal, setShowModal] = useState(false);
-  const [childrenModal, setChildrenModal] = useState('');
+  const [showAlert, setShowAlert] = useState(false)
+  const [childrenAlert, setChildrenAlert] = useState('')
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,16 +21,15 @@ const Navbar = () => {
   const handleExit = async () => {
     const resp = await dispatch(logOut());
     if (!resp.error) {
-      setChildrenModal(resp.message);
-      setShowModal(true)
+      setChildrenAlert(resp.message)
+      setShowAlert(true);
+      navigate('/')
     };
   };
 
   return (
     <>
-      <Modal show={showModal} handleClose={() => { setShowModal(false); navigate('/') }} >
-        {childrenModal}
-      </Modal>
+      <Alert show={showAlert} setShow={setShowAlert}>{childrenAlert}</Alert>
       <header className={styles.container}>
         <NavLink to="/"><h1> AMBAR </h1></NavLink>
         <div className={styles.navbarCollapse}>

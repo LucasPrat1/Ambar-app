@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './checkout.module.css'
 import { useForm } from 'react-hook-form';
 import { Input, Loader, Button, Modal, Alert } from '../Shared';
@@ -13,22 +13,25 @@ import OrderPDF from '../OrderPDF/OrderPDF';
 
 
 const Checkout = ({ total }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoading = useSelector((state) => state.order.isLoading);
-  const cart = useSelector((state) => state.cart.cart)
-  const user = useSelector((state) => {
-    if (state.auth.token) {
-      return state.auth.user
+  const cart = useSelector((state) => state.cart.cart);
+  const token = useSelector((state) => state.auth.token);
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/signin');
     }
-  })
+  }, [navigate, token])
+
+  const user = useSelector((state) => state.auth.token && state.auth.user)
 
   const [showAlert, setShowAlert] = useState(false)
   const [typeAlert, setTypeAlert] = useState('')
   const [childrenAlert, setChildrenAlert] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [childrenModal, setChildrenModal] = useState('')
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const schema = joi.object({
     name: joi
@@ -105,26 +108,35 @@ const Checkout = ({ total }) => {
       try {
         const resp = await dispatch(addOrder(newOrder));
         if (resp.error) {
+          setChildrenModal(resp.message);
+          setShowModal(true);
           throw resp
         } else {
-          const orderAdded = await dispatch(getOrdersId(resp.data._id));
-
-          setChildrenAlert(resp.message)
-          setTypeAlert('success')
-          setShowAlert(true);
-          setChildrenModal(
-            <PDFViewer width={'800px'} height={'500px'}>
-              <OrderPDF order={orderAdded.data} />
-            </PDFViewer>
-          )
-          setShowModal(true)
-          dispatch(clearItems());
-          // window.open(`/order/${resp.data._id}`, '_blank', 'noreferrer')
+          try {
+            const orderAdded = await dispatch(getOrdersId(resp.data._id));
+            if (orderAdded.error) {
+              setChildrenModal(resp.message);
+              setShowModal(true);
+              throw orderAdded
+            } else {
+              setChildrenModal(
+                <PDFViewer width={'100%'} height={'100%'}>
+                  <OrderPDF order={orderAdded.data} />
+                </PDFViewer>
+              )
+              setShowModal(true)
+              setChildrenAlert(resp.message)
+              setTypeAlert('success')
+              setShowAlert(true);
+              dispatch(clearItems());
+              // window.open(`/order/${resp.data._id}`, '_blank', 'noreferrer')
+            }
+          } catch (error) {
+            console.error(error);
+          }
         }
       } catch (error) {
         console.error(error);
-        setChildrenModal(error.message);
-        setShowModal(true);
       }
     }
   };
@@ -132,7 +144,13 @@ const Checkout = ({ total }) => {
   return (
     <>
       <Loader show={isLoading} />
-      <Modal show={showModal} handleClose={() => { setShowModal(false); navigate('/') }}>{childrenModal}</Modal>
+      <Modal
+        show={showModal}
+        handleClose={() => { setShowModal(false); navigate('/') }}
+        size={{ width: "98%", height: "98%" }}
+      >
+        {childrenModal}
+      </Modal>
       <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
       <div>
         <form className={styles.form}>
