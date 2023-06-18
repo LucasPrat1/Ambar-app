@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #202020;
+    color: #dddddd;
+    padding: 1rem 0;
+}
+
+.containerSpans {
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+}
+
+.info {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.whatsapp {
+    color: #00ca00;
+}
+
+.whatsapp:hover {
+    color: #008000;
+}
+
+.mail {
+    color: #0046A3;
+}
+
+.mail:hover {
+    color: #003274;
+}
+
+.copyright {
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    color: #979797;
+}
+
+.social {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.social p {
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.socialIcons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.socialIcons a {
+    font-size: 1.4rem;
+    color: #dddddd;
+}
+
+
+.socialIcons a:hover {
+    color: #ffffff;
+}

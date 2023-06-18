@@ -1,19 +1,20 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import Home from './Components/Home/Home';
 import Navbar from './Components/Navbar/Navbar';
+import Footer from './Components/Footer/Footer';
+import Home from './Components/Home/Home';
 import Products from './Components/Products/Products';
 import Product from './Components/Product/Product';
 import Cart from './Components/Cart/Cart';
+import OrderPDF from './Components/OrderPDF/OrderPDF'
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SingUp'
-import OrderPDF from './Components/OrderPDF/OrderPDF'
+import Profile from './Components/Profile/Profile';
 import { Route, Routes } from 'react-router-dom';
 import { onIdTokenChanged, getAuth } from 'firebase/auth'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAuth } from './redux/auth/thunks'
 import { cleanUser } from './redux/auth/actions';
-import Profile from './Components/Profile/Profile';
 
 function App() {
   const auth = getAuth();
@@ -28,7 +29,6 @@ function App() {
       }
     });
   }, [auth, dispatch])
-
 
   // const token = useSelector((state) => state.auth.token)
   // const user = useSelector((state) => state.auth.user)
@@ -48,6 +48,7 @@ function App() {
         <Route exact path='/profile/:uid' element={<Profile />} />
         <Route exact path='/order/:id' element={<OrderPDF />} />
       </Routes>
+      <Footer />
     </>
   );
 }
