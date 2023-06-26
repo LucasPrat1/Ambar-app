@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import styles from './navbar.module.css'
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/thunks';
 import { Button, Alert } from '../../Components/Shared/index';
 
@@ -17,6 +16,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleExit = async () => {
     const resp = await dispatch(logOut());
@@ -75,13 +75,23 @@ const Navbar = () => {
                 </Button>
               </div>
             ) : (
-              <div className={styles.navbarButtons}>
-                <Link to="/signin">
-                  <Button className={styles.navButton}>
-                    <i className="fa-solid fa-user"></i> Sign In
-                  </Button>
-                </Link>
-              </div>
+              location.pathname === '/signin' ? (
+                <div className={styles.navbarButtons}>
+                  <Link to="/signup">
+                    <Button className={styles.navButton}>
+                      <i className="fa-solid fa-user"></i> Sign Up
+                    </Button>
+                  </Link>
+                </div>
+              ) : (
+                <div className={styles.navbarButtons}>
+                  <Link to="/signin">
+                    <Button className={styles.navButton}>
+                      <i className="fa-solid fa-user"></i> Sign In
+                    </Button>
+                  </Link>
+                </div>
+              )
             )
           }
         </div>

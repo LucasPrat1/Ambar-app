@@ -140,3 +140,21 @@ export const editUser = (user, _id) => {
     }
   };
 };
+
+export const contactMessage = (data) => {
+  return async (dispatch) => {
+    try {
+      const resp = await fetch(`${process.env.REACT_APP_API_URL}/users/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      const response = await resp.json();
+      return response;
+    } catch (error) {
+      return { error: true, message: error.toString() };
+    }
+  };
+};

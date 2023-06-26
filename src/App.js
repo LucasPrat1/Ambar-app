@@ -15,6 +15,7 @@ import { onIdTokenChanged, getAuth } from 'firebase/auth'
 import { useDispatch } from 'react-redux';
 import { setAuth } from './redux/auth/thunks'
 import { cleanUser } from './redux/auth/actions';
+import Contact from './Components/Contact/Contact';
 
 function App() {
   const auth = getAuth();
@@ -45,6 +46,7 @@ function App() {
         <Route exact path='/cart' element={<Cart />} />
         <Route exact path='/signin' element={<SignIn />} />
         <Route exact path='/signup' element={<SignUp />} />
+        <Route exact path='/contact' element={<Contact />} />
         <Route exact path='/profile/:uid' element={<Profile />} />
         <Route exact path='/order/:id' element={<OrderPDF />} />
       </Routes>

@@ -6,7 +6,7 @@
     width: 100%;
     background-color: #202020;
     color: #dddddd;
-    padding: 1rem 0;
+    padding: 1rem 0 0.5rem;
 }
 
 .containerSpans {
@@ -39,7 +39,7 @@
 }
 
 .copyright {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     font-size: 0.7rem;
     color: #979797;
 }
@@ -64,7 +64,7 @@
 }
 
 .socialIcons a {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #dddddd;
 }
 

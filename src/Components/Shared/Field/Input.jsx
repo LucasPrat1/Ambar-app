@@ -21,6 +21,19 @@ const Input = ({ type, name, label, register, valueOptions, valueRadio, error, d
           </select>
           {error && <p className={styles.error}>{error}</p>}
         </div>
+      ) : (type === 'textarea' ? (
+        <div className={styles.container}>
+          <label htmlFor={name}>{label}</label>
+          <textarea
+            rows="8"
+            label={label}
+            name={name}
+            {...register(name)}
+            className={error ? styles.inputError : styles.input}
+            disabled={disabled && disabled}
+          ></textarea>
+          {error && <p className={styles.error}>{error}</p>}
+        </div>
       ) : (
         <div className={styles.container}>
           <label htmlFor={name}>{label}</label>
@@ -35,7 +48,7 @@ const Input = ({ type, name, label, register, valueOptions, valueRadio, error, d
           ></input>
           {error && <p className={styles.error}>{error}</p>}
         </div>
-      )}
+      ))}
     </>
   );
 };
