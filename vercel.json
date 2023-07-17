@@ -2,7 +2,7 @@
     "redirects": [
       {
         "source": "/api/:path*",
-        "destination": "ambar-server.vercel.app/api/"
+        "destination": "ambar-server.vercel.app/api/:path*"
       }
     ]
   }
