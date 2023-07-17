@@ -1,5 +1,5 @@
 {
-    "redirects": [
+    "rewrites": [
       {
         "source": "/api/:path*",
         "destination": "https://ambar-server.vercel.app/api/:path*"
