@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url(../../../public/assets/bg.jpg) no-repeat;
+    background: url(../../../public/images/d2.jpeg) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -13,22 +13,17 @@
     color: white;
     text-align: center;
     width: 50%;
-    height: 65%;
+    height: 85%;
     font-weight: 500;
-}
-
-.containerText p {
-    font-size: 20px;
-    padding: 15px;
 }
 
 .containerText h1 {
     font-family: 'Seymour One', sans-serif;
-    font-size: 65px;
+    font-size: 4rem;
 }
 
 @media (max-width: 600px) {
     .containerText h1 {
-        font-size: 45px;
+        font-size: 3rem;
     }
 }

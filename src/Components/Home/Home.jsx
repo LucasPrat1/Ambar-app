@@ -8,9 +8,6 @@ const Home = () => {
 		<div className={styles.container}>
 			<div className={styles.containerText} >
 				<h1>New season arrivals</h1>
-				<p>
-					Check out all the trends
-				</p>
 			</div>
 		</div>
 		<Products/>

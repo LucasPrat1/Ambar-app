@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { setAuth } from './redux/auth/thunks'
 import { cleanUser } from './redux/auth/actions';
 import Contact from './Components/Contact/Contact';
+import About from './Components/About/About';
 
 function App() {
   const auth = getAuth();
@@ -47,6 +48,7 @@ function App() {
         <Route exact path='/signin' element={<SignIn />} />
         <Route exact path='/signup' element={<SignUp />} />
         <Route exact path='/contact' element={<Contact />} />
+        <Route exact path='/about' element={<About />} />
         <Route exact path='/profile/:uid' element={<Profile />} />
         <Route exact path='/order/:id' element={<OrderPDF />} />
       </Routes>

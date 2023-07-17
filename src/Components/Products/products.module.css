@@ -1,3 +1,9 @@
+.products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .products h2 {
     text-align: center;
     padding: 1rem;
@@ -20,4 +26,35 @@
     gap: 1rem;
     align-content: center;
     flex-wrap: wrap;
+}
+
+.containerConditions {
+    display: flex;
+    flex-wrap: wrap;
+    width: 85%;
+    justify-content: space-around;
+    margin: 1rem;
+    padding: 0.7rem;
+    background-color: #f3f3f3;
+    color: #202020;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.condition {
+    display: flex;
+    width: 28%;
+    min-width: 10rem;
+    align-items: center;
+    /* justify-content: space-between; */
+    margin: 0.5rem;
+}
+
+.condition i {
+    margin-right: 1rem;
+}
+
+.condition h5 {
+    text-transform: uppercase;
+    font-size: 1rem;
 }
