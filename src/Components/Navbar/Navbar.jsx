@@ -68,7 +68,7 @@ const Navbar = () => {
                         </Button>
                       </Link>
 
-                      {auth.user.isAdmin &&
+                      {auth?.user?.isAdmin &&
                         <div className={styles.dropAdmin}>
                           <Button className={styles.dropAdminButton}>
                             <i className="fa-solid fa-clipboard-list"></i>  Admin Menu
@@ -102,7 +102,7 @@ const Navbar = () => {
                           <i className="fa-solid fa-shopping-cart"></i>  Cart ({cart.length})
                         </Link>
 
-                        {auth.user.isAdmin &&
+                        {auth?.user?.isAdmin &&
                           <div className={styles.dropAdmin}>
                             <Link className={styles.dropAdminButton}>
                               <i className="fa-solid fa-clipboard-list"></i>  Admin Menu

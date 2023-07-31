@@ -42,6 +42,7 @@ export const setAuth = (token) => {
         headers: { token }
       });
       const response = await resp.json();
+      console.log('response fetch auth en thunk setAuth:', response)
       dispatch(setAuthenticationSuccess(response.data));
       return { error: false, message: "Authentication successfully" };
     } catch (error) {
