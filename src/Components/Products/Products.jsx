@@ -51,21 +51,21 @@ const Products = () => {
         )}
         <div className={styles.containerConditions}>
           <div className={styles.condition}>
-            <i class="fa-solid fa-truck-fast fa-2xl"></i>
+            <i className="fa-solid fa-truck-fast fa-2xl"></i>
             <div>
               <h5>free shipping</h5>
               <p>for purchases over $5000</p>
             </div>
           </div>
           <div className={styles.condition}>
-            <i class="fa-regular fa-credit-card fa-2xl"></i>
+            <i className="fa-regular fa-credit-card fa-2xl"></i>
             <div>
               <h5>interest free installments</h5>
               <p>With all credit cards</p>
             </div>
           </div>
           <div className={styles.condition}>
-          <i class="fa-solid fa-percent fa-2xl"></i>
+          <i className="fa-solid fa-percent fa-2xl"></i>
             <div>
               <h5>discount</h5>
               <p>Get 15% OFF cash payment</p>

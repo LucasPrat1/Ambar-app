@@ -18,6 +18,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const nameCap = auth?.user?.name?.charAt(0).toUpperCase() + auth?.user?.name?.slice(1);
+
   const handleExit = async () => {
     const resp = await dispatch(logOut());
     if (!resp.error) {
@@ -54,22 +56,33 @@ const Navbar = () => {
               <div className={styles.navbarButtons}>
                 <Link to={`/profile/${auth.user.firebaseUid}`}>
                   <Button className={styles.navButton}>
-                    <i className="fa-solid fa-user"></i>  {auth.user.name}
+                    <i className="fa-solid fa-user"></i> {nameCap}
                   </Button>
                 </Link>
-                {
-                  auth.user.isAdmin &&
-                  <Link to="/abmorders">
-                    <Button className={styles.navButton}>
-                      <i className="fa-solid fa-clipboard-list"></i>  Orders
-                    </Button>
-                  </Link>
-                }
                 <Link to="/cart">
                   <Button className={styles.navButton}>
                     <i className="fa-solid fa-shopping-cart"></i>  Cart ({cart.length})
                   </Button>
                 </Link>
+
+                {auth.user.isAdmin &&
+                  <>
+                    <div className={styles.dropdown}>
+                      <Button className={styles.dropButton}>
+                        <i className="fa-solid fa-clipboard-list"></i>  Menu
+                      </Button>
+                      <div className={styles.dropdownContent}>
+                        <Link to="/abmorders">
+                          <i className="fa-solid fa-clipboard-list"></i>  ABM Orders
+                        </Link>
+                        <Link to="/abmproducts">
+                          <i className="fa-solid fa-clipboard-list"></i> ABM Products
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                }
+
                 <Button onClick={() => handleExit()} className={styles.navButton}>
                   <i className="fa fa-sign-in me-1"></i>  Exit
                 </Button>
@@ -95,6 +108,9 @@ const Navbar = () => {
             )
           }
         </div>
+        <button className={styles.burgerButton}>
+          <i className="fa-solid fa-bars fa-2xl"></i>
+        </button>
       </header>
     </>
   )
