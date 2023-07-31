@@ -36,13 +36,15 @@ export const login = (credentials) => {
 
 export const setAuth = (token) => {
   return async (dispatch) => {
+    console.log('token en thunk setAuth:', token)
     dispatch(setAuthenticationPending());
     try {
-      const resp = await fetch(`${process.env.REACT_APP_API_URL}/users/auth/`, {
+      const resp = await fetch(`${process.env.REACT_APP_API_URL}/users/auth`, {
         headers: { token }
       });
+      console.log('resp fetch auth en thunk setAuth:', resp)
       const response = await resp.json();
-      console.log('response fetch auth en thunk setAuth:', response)
+      console.log('response json fetch auth en thunk setAuth:', response)
       dispatch(setAuthenticationSuccess(response.data));
       return { error: false, message: "Authentication successfully" };
     } catch (error) {
