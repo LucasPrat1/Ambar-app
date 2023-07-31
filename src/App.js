@@ -39,19 +39,21 @@ function App() {
 
   return (
     <>
-      <Navbar/>
-      <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route exact path='/products' element={<Products />} />
-        <Route exact path='/product/:id' element={<Product />} />
-        <Route exact path='/cart' element={<Cart />} />
-        <Route exact path='/signin' element={<SignIn />} />
-        <Route exact path='/signup' element={<SignUp />} />
-        <Route exact path='/contact' element={<Contact />} />
-        <Route exact path='/about' element={<About />} />
-        <Route exact path='/profile/:uid' element={<Profile />} />
-        <Route exact path='/order/:id' element={<OrderPDF />} />
-      </Routes>
+      <Navbar />
+      <main>
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route exact path='/products' element={<Products />} />
+          <Route exact path='/product/:id' element={<Product />} />
+          <Route exact path='/cart' element={<Cart />} />
+          <Route exact path='/signin' element={<SignIn />} />
+          <Route exact path='/signup' element={<SignUp />} />
+          <Route exact path='/contact' element={<Contact />} />
+          <Route exact path='/about' element={<About />} />
+          <Route exact path='/profile/:uid' element={<Profile />} />
+          <Route exact path='/order/:id' element={<OrderPDF />} />
+        </Routes>
+      </main>
       <Footer />
     </>
   );

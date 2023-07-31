@@ -5,11 +5,11 @@ import styles from './home.module.css'
 const Home = () => {
 	return (
 		<>
-			<main className={styles.container}>
+			<section className={styles.container}>
 				<div className={styles.containerText} >
 					<h1>New season arrivals</h1>
 				</div>
-			</main>
+			</section>
 			<Products />
 		</>
 	)
