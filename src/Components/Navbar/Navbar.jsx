@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './navbar.module.css'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/thunks';
-import { Button, Alert, Loader } from '../../Components/Shared/index';
+import { Button, Loader } from '../../Components/Shared/index';
+import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions';
 
 
 
 const Navbar = () => {
   const cart = useSelector((state) => state.cart.cart);
   const auth = useSelector((state) => state.auth);
-
-  const [showAlert, setShowAlert] = useState(false)
-  const [childrenAlert, setChildrenAlert] = useState('')
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,8 +21,9 @@ const Navbar = () => {
   const handleExit = async () => {
     const resp = await dispatch(logOut());
     if (!resp.error) {
-      setChildrenAlert(resp.message)
-      setShowAlert(true);
+      dispatch(setMessageAlert(resp.message));
+      dispatch(setTypeAlert('info'));
+      dispatch(setShowAlert(true));
       navigate('/')
     };
   };
@@ -32,7 +31,6 @@ const Navbar = () => {
   return (
     auth?.user?.isLoading ? <Loader show={auth?.user?.isLoading} /> :
       <>
-        <Alert show={showAlert} setShow={setShowAlert}>{childrenAlert}</Alert>
         <header>
           <div className={styles.container}>
             <Link to="/"><h1> AMBAR </h1></Link>

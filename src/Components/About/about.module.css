@@ -1,32 +1,47 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
 }
 
 .p1, .p3 {
-    width: 80%;
-    padding: 1rem;
+  width: 80%;
+  padding: 1rem;
 }
 
 .p2 {
-    width: 80%;
-    border-left: 3px solid #0046A3;
-    font-style: italic;
-    padding: 1rem 0 1rem 1rem;
-    margin-left: 1rem;
+  width: 80%;
+  border-left: 3px solid #0046A3;
+  font-style: italic;
+  padding: 1rem 0 1rem 1rem;
+  margin-left: 1rem;
 }
 
 .containerImg {
-    overflow: hidden;
-    width: 100%;
-    height: 70vh;
+  overflow: hidden;
+  width: 100%;
+  height: 50vh;
 }
 
 .img {
-    position: relative;
-    top: -150%;
-    width: 100%;
+  position: relative;
+  top: -50vh;
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .containerImg {
+    height: 35vh;
+  }
+  .img {
+    top: 0;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1023px) {
+  .img {
+    top: -30vh;
+  }
 }

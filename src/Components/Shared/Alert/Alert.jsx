@@ -1,24 +1,33 @@
 import React from 'react';
 import styles from './alert.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { setShowAlert } from '../../../redux/alert/actions';
 
-const Alert = ({ children, show, setShow, time, type }) => {
-  if (!show) {
+const Alert = () => {
+  const dispatch = useDispatch();
+  const alert = useSelector((state) => state.alert)
+
+  if (!alert.show) {
     return null;
   }
 
-  setTimeout(()=> { setShow(false) },  time? time : 3500 )
+  const closeAlert = () => {
+    dispatch(setShowAlert(false));
+   }
+
+  setTimeout(()=> { closeAlert() },  alert.time )
 
   return (
     <div className={
-      type === 'success' ? styles.alertSuccess :
-        type === 'error' ? styles.alertError :
-          type === 'warning' ? styles.alertWarning :
+      alert.type === 'success' ? styles.alertSuccess :
+        alert.type === 'error' ? styles.alertError :
+          alert.type === 'warning' ? styles.alertWarning :
             styles.alertInfo
     } >
       <p>
-        {children}
+        {alert.message}
       </p>
-      <button onClick={() => setShow(false)} className={styles.btnX}>
+      <button onClick={() => closeAlert()} className={styles.btnX}>
         <i className="fa-solid fa-xmark"></i>
       </button>
     </div>

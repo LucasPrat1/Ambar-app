@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './signIn.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
@@ -6,13 +6,10 @@ import { useForm } from 'react-hook-form'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi';
 import { login } from '../../redux/auth/thunks';
-import { Button, Input, Loader, Alert } from '../Shared';
+import { Button, Input, Loader } from '../Shared';
+import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions';
 
 const SingIn = () => {
-  const [showAlert, setShowAlert] = useState(false)
-  const [typeAlert, setTypeAlert] = useState('')
-  const [childrenAlert, setChildrenAlert] = useState('')
-
   const isLoading = useSelector((state) => state.auth.isLoading);
 
   const navigate = useNavigate();
@@ -55,16 +52,14 @@ const SingIn = () => {
     try {
       const user = await dispatch(login(data));
       if (user.error) {
-        setChildrenAlert('Invalid email or password');
-        setTypeAlert('error');
-        setShowAlert(true);
+        dispatch(setMessageAlert('Invalid email or password'))
+        dispatch(setTypeAlert('error'))
+        dispatch(setShowAlert(true));
       } else {
-        setChildrenAlert(user.message);
-        setTypeAlert('info');
-        setShowAlert(true);
-        setTimeout(() => {
-          navigate('/')
-        }, 1500);
+        dispatch(setMessageAlert(user.message))
+        dispatch(setTypeAlert('info'))
+        dispatch(setShowAlert(true));
+        navigate('/');
       }
     } catch (error) {
       console.error(error);
@@ -74,7 +69,6 @@ const SingIn = () => {
   return (
     <>
       <Loader show={isLoading} />
-      <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
       <div className={styles.container}>
         <h2>Sing In</h2>
         <form className={styles.form}>

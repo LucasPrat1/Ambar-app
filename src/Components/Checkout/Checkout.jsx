@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './checkout.module.css'
 import { useForm } from 'react-hook-form';
-import { Input, Loader, Button, Modal, Alert } from '../Shared';
+import { Input, Loader, Button, Modal } from '../Shared';
 import { useDispatch, useSelector } from 'react-redux';
 import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { clearItems } from '../../redux/cart/thunks';
 import { PDFViewer } from '@react-pdf/renderer';
 import OrderPDF from '../OrderPDF/OrderPDF';
-
+import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions';
 
 const Checkout = ({ total }) => {
   const dispatch = useDispatch();
@@ -27,9 +27,6 @@ const Checkout = ({ total }) => {
 
   const user = useSelector((state) => state.auth.token && state.auth.user)
 
-  const [showAlert, setShowAlert] = useState(false)
-  const [typeAlert, setTypeAlert] = useState('')
-  const [childrenAlert, setChildrenAlert] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [childrenModal, setChildrenModal] = useState('')
 
@@ -125,11 +122,10 @@ const Checkout = ({ total }) => {
                 </PDFViewer>
               )
               setShowModal(true)
-              setChildrenAlert(resp.message)
-              setTypeAlert('success')
-              setShowAlert(true);
+              dispatch(setMessageAlert(resp.message));
+              dispatch(setTypeAlert('success'));
+              dispatch(setShowAlert(true))
               dispatch(clearItems());
-              // window.open(`/order/${resp.data._id}`, '_blank', 'noreferrer')
             }
           } catch (error) {
             console.error(error);
@@ -151,7 +147,6 @@ const Checkout = ({ total }) => {
       >
         {childrenModal}
       </Modal>
-      <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
       <div>
         <form className={styles.form}>
           <h3>finalize your purchase</h3>

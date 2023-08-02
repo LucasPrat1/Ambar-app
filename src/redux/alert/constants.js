@@ -1,0 +1,5 @@
+export const SET_MESSAGE_ALERT = 'SET_MESSAGE_ALERT';
+export const SET_TYPE_ALERT = 'SET_TYPE_ALERT';
+export const SET_TIME_ALERT = 'SET_TIME_ALERT';
+export const SET_SHOW_ALERT = 'SET_SHOW_ALERT';
+

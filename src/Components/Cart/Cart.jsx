@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { addItem, clearItems, deleteItem } from '../../redux/cart/thunks'
-import { Button, Alert, Modal } from '../Shared'
+import { Button, Modal } from '../Shared'
 import styles from './cart.module.css'
 import Checkout from '../Checkout/Checkout'
+import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions'
 
 
 const Cart = () => {
@@ -19,12 +20,7 @@ const Cart = () => {
     }
   }, [navigate, token])
 
-
   const [showCheckout, setShowCheckout] = useState(false)
-
-  const [showAlert, setShowAlert] = useState(false)
-  const [typeAlert, setTypeAlert] = useState('')
-  const [childrenAlert, setChildrenAlert] = useState('')
 
   const cart = useSelector((state) => state.cart.cart)
   let total = 0;
@@ -32,26 +28,26 @@ const Cart = () => {
   const handleAdd = async (item) => {
     const resp = await dispatch(addItem(item))
     if (!resp.error) {
-      setChildrenAlert(resp.message)
-      setTypeAlert('success')
-      setShowAlert(true);
+      dispatch(setMessageAlert(resp.message));
+      dispatch(setTypeAlert('success'));
+      dispatch(setShowAlert(true))
     } else {
-      setChildrenAlert(resp.message)
-      setTypeAlert('error')
-      setShowAlert(true);
+      dispatch(setMessageAlert(resp.message));
+      dispatch(setTypeAlert('error'));
+      dispatch(setShowAlert(true))
     }
   }
 
   const handleDelete = async (itemId) => {
     const resp = await dispatch(deleteItem(itemId))
     if (!resp.error) {
-      setChildrenAlert(resp.message)
-      setTypeAlert('warning')
-      setShowAlert(true);
+      dispatch(setMessageAlert(resp.message));
+      dispatch(setTypeAlert('warning'));
+      dispatch(setShowAlert(true))
     } else {
-      setChildrenAlert(resp.message)
-      setTypeAlert('error')
-      setShowAlert(true);
+      dispatch(setMessageAlert(resp.message));
+      dispatch(setTypeAlert('error'));
+      dispatch(setShowAlert(true))
     }
   }
 
@@ -60,13 +56,13 @@ const Cart = () => {
       if (window.confirm('Are you sure you want to empty your cart?')) {
         const resp = await dispatch(clearItems())
         if (!resp.error) {
-          setChildrenAlert(resp.message);
-          setTypeAlert('success');
-          setShowAlert(true);
+          dispatch(setMessageAlert(resp.message));
+          dispatch(setTypeAlert('success'));
+          dispatch(setShowAlert(true))
         } else {
-          setChildrenAlert(resp.message);
-          setTypeAlert('error');
-          setShowAlert(true);
+          dispatch(setMessageAlert(resp.message));
+          dispatch(setTypeAlert('error'));
+          dispatch(setShowAlert(true))
         }
       }
     } catch (error) {
@@ -85,7 +81,6 @@ return (
         </>
       ) : (
         <>
-          <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
           <h2>My Cart</h2>
           <table>
             <thead>

@@ -17,6 +17,7 @@
   bottom: 1.5rem;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
   animation: fadein 0.5s, fadeout 0.5s 3s;
+  z-index: 2;
 }
 
 .alertError {
@@ -38,6 +39,7 @@
   bottom: 1.5rem;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
   animation: fadein 0.5s, fadeout 0.5s 3s;
+  z-index: 2;
 }
 
 .alertWarning {
@@ -59,6 +61,7 @@
   bottom: 1.5rem;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
   animation: fadein 0.5s, fadeout 0.5s 3s;
+  z-index: 2;
 }
 
 .alertInfo {
@@ -80,6 +83,7 @@
   bottom: 1.5rem;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 3s;
   animation: fadein 0.5s, fadeout 0.5s 3s;
+  z-index: 2;
 }
 
 .btnX {

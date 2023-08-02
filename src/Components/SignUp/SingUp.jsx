@@ -1,22 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './signUp.module.css'
 import joi from 'joi';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../../redux/auth/thunks';
-import { Input, Button, Alert, Loader } from '../Shared/index';
+import { Input, Button, Loader } from '../Shared/index';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Link, useNavigate } from 'react-router-dom';
+import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions';
 
 const SingUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isLoading = useSelector((state) => state.auth.isLoading);
-
-  const [showAlert, setShowAlert] = useState(false)
-  const [typeAlert, setTypeAlert] = useState('')
-  const [childrenAlert, setChildrenAlert] = useState('')
 
   const schema = joi.object({
     name: joi
@@ -101,16 +98,14 @@ const SingUp = () => {
       const resp = await dispatch(addUser(data));
       console.log('resp', resp)
       if (resp.error) {
-        setChildrenAlert(resp.message);
-        setTypeAlert('error');
-        setShowAlert(true);
+        dispatch(setMessageAlert(resp.message));
+        dispatch(setTypeAlert('error'));
+        dispatch(setShowAlert(true));
       } else {
-        setChildrenAlert(resp.message);
-        setTypeAlert('info');
-        setShowAlert(true);
-        setTimeout(() => {
-          navigate('/signin')
-        }, 1500);
+        dispatch(setMessageAlert(resp.message));
+        dispatch(setTypeAlert('info'));
+        dispatch(setShowAlert(true));
+        navigate('/signin')
       }
     } catch (error) {
       console.error(error);
@@ -121,7 +116,6 @@ const SingUp = () => {
     <>
       <Loader show={isLoading} />
       <section>
-        <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
         <div className={styles.container}>
           <h2>Sign Up</h2>
           <form className={styles.form}>

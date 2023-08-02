@@ -144,7 +144,7 @@ const Profile = () => {
   return (
     authLoading ? <Loader show={authLoading} /> :
       ordersLoading ? <Loader show={ordersLoading} /> :
-        <section>
+        <section className={styles.sectionContainer}>
           <Modal
             show={showModal}
             handleClose={() => { setShowModal(false) }}

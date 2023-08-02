@@ -17,6 +17,7 @@ import { setAuth } from './redux/auth/thunks'
 import { cleanUser } from './redux/auth/actions';
 import Contact from './Components/Contact/Contact';
 import About from './Components/About/About';
+import { Alert } from './Components/Shared';
 
 function App() {
   const auth = getAuth();
@@ -32,13 +33,9 @@ function App() {
     });
   }, [auth, dispatch])
 
-  // const token = useSelector((state) => state.auth.token)
-  // const user = useSelector((state) => state.auth.user)
-  // console.log('reduxAuth', reduxAuth)
-  // console.log('user en app', user);
-
   return (
     <>
+      <Alert />
       <Navbar />
       <main>
         <Routes>

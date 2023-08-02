@@ -17,6 +17,10 @@ main {
 #root {
   margin: 0;
   height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   font-family: 'Roboto', sans-serif, 'Oxygen', 'Ubuntu';
 }
 

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styles from './Product.module.css'
-import { Loader, Button, Rating, Alert } from '../../Components/Shared/index';
+import { Loader, Button, Rating } from '../../Components/Shared/index';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsId } from "../../redux/products/thunks"
 import { addItem, deleteItem } from "../../redux/cart/thunks";
+import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions';
 
 
 const Product = () => {
@@ -16,11 +17,6 @@ const Product = () => {
   const product = useSelector((state) => state.products.product);
   const auth = useSelector((state) => state.auth);
   const cart = useSelector((state) => state.cart.cart);
-
-
-  const [showAlert, setShowAlert] = useState(false)
-  const [typeAlert, setTypeAlert] = useState('')
-  const [childrenAlert, setChildrenAlert] = useState('')
 
   const item = cart.find((item) => item._id === product._id);
 
@@ -34,13 +30,13 @@ const Product = () => {
     } else {
       const resp = await dispatch(addItem(product))
       if (!resp.error) {
-        setChildrenAlert(resp.message)
-        setTypeAlert('success')
-        setShowAlert(true);
+        dispatch(setMessageAlert(resp.message));
+        dispatch(setTypeAlert('success'));
+        dispatch(setShowAlert(true));
       } else {
-        setChildrenAlert(resp.message)
-        setTypeAlert('error')
-        setShowAlert(true);
+        dispatch(setMessageAlert(resp.message));
+        dispatch(setTypeAlert('error'));
+        dispatch(setShowAlert(true));
       }
     }
   }
@@ -51,13 +47,13 @@ const Product = () => {
     } else {
       const resp = await dispatch(deleteItem(product._id))
       if (!resp.error) {
-        setChildrenAlert(resp.message)
-        setTypeAlert('warning')
-        setShowAlert(true);
+        dispatch(setMessageAlert(resp.message));
+        dispatch(setTypeAlert('warning'));
+        dispatch(setShowAlert(true));
       } else {
-        setChildrenAlert(resp.message)
-        setTypeAlert('error')
-        setShowAlert(true);
+        dispatch(setMessageAlert(resp.message));
+        dispatch(setTypeAlert('error'));
+        dispatch(setShowAlert(true));
       }
     }
   }
@@ -65,7 +61,6 @@ const Product = () => {
   return (
     <>
       <Loader show={isLoading} />
-      <Alert show={showAlert} setShow={setShowAlert} type={typeAlert}>{childrenAlert}</Alert>
       <div className={styles.container}>
         <div className={styles.containerImg}>
           <img src={product.image} alt={product.name} />

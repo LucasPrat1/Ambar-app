@@ -7,7 +7,7 @@ const Modal = ({ children, show, handleClose, size }) => {
   }
 
   return (
-    <div className={styles.shade}>
+    <div className={styles.shade} >
       <div className={styles.billboard} style={size && {width: size.width, height: size.height}}>
         <button onClick={handleClose} className={styles.btnX}>
           <i className="fa-solid fa-circle-xmark"></i>
