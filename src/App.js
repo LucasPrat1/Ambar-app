@@ -10,13 +10,14 @@ import OrderPDF from './Components/OrderPDF/OrderPDF'
 import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SingUp'
 import Profile from './Components/Profile/Profile';
+import Contact from './Components/Contact/Contact';
+import About from './Components/About/About';
+import ABMProducts from './Components/ABMProducts/ABMProducts';
 import { Route, Routes } from 'react-router-dom';
 import { onIdTokenChanged, getAuth } from 'firebase/auth'
 import { useDispatch } from 'react-redux';
 import { setAuth } from './redux/auth/thunks'
 import { cleanUser } from './redux/auth/actions';
-import Contact from './Components/Contact/Contact';
-import About from './Components/About/About';
 import { Alert } from './Components/Shared';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route exact path='/about' element={<About />} />
           <Route exact path='/profile/:uid' element={<Profile />} />
           <Route exact path='/order/:id' element={<OrderPDF />} />
+          <Route exact path='/abmproducts' element={<ABMProducts />} />
         </Routes>
       </main>
       <Footer />

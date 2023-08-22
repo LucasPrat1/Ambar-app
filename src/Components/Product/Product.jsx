@@ -28,7 +28,7 @@ const Product = () => {
     if (!auth.token) {
       navigate('/signin')
     } else {
-      const resp = await dispatch(addItem(product))
+      const resp = dispatch(addItem(product))
       if (!resp.error) {
         dispatch(setMessageAlert(resp.message));
         dispatch(setTypeAlert('success'));
@@ -45,7 +45,7 @@ const Product = () => {
     if (!auth.token) {
       navigate('/signin')
     } else {
-      const resp = await dispatch(deleteItem(product._id))
+      const resp = dispatch(deleteItem(product._id))
       if (!resp.error) {
         dispatch(setMessageAlert(resp.message));
         dispatch(setTypeAlert('warning'));
@@ -63,7 +63,7 @@ const Product = () => {
       <Loader show={isLoading} />
       <div className={styles.container}>
         <div className={styles.containerImg}>
-          <img src={product.image} alt={product.name} />
+          <img src={process.env.REACT_APP_API_PUBLIC+product.image} alt={product.name} />
         </div>
         <div className={styles.containerInfo}>
           <Link onClick={() => navigate(-1)} className={styles.back} ><i className="fa-solid fa-backward"></i> Back</Link>
