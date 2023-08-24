@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import Card from '../Card/Card';
 import styles from './products.module.css'
-import { Loader, Button } from '../../Components/Shared/index';
+import { Loader } from '../../Components/Shared/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../redux/products/thunks';
+import { Select, MenuItem, Button, FormControl, InputLabel } from '@mui/material';
 
 const Products = () => {
   const dispatch = useDispatch();
 
-  const [filter, setFilter] = useState()
-  const [mounted, setMounted] = useState(false)
+  const [brandSelected, setBrandSelected] = useState('');
+  const [categorySelected, setCategorySelected] = useState('');
+
+  const [dataActive, setDataActive] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     dispatch(getProducts())
@@ -19,12 +24,37 @@ const Products = () => {
   const data = useSelector((state) => state.products.list);
 
   useEffect(() => {
-    setFilter(data);
+    const active = data.filter((prod) => prod.status === true);
+    setDataActive(active);
+    setFilter(active);
     setMounted(true);
   }, [data])
 
-  const filterProducts = (category) => {
-    const filterList = data.filter((prod) => prod.category === category);
+  const categoryList = new Set();
+  const brandList = new Set();
+
+  dataActive.forEach(prod => {
+    categoryList.add(prod.category);
+    brandList.add(prod.brand);
+  });
+
+  const filterProducts = () => {
+    let filterList = [];
+
+    if (brandSelected) {
+      if (categorySelected) {
+        filterList = dataActive.filter((prod) => prod.brand === brandSelected && prod.category === categorySelected)
+      } else {
+        filterList = dataActive.filter((prod) => prod.brand === brandSelected)
+      }
+    } else {
+      if (categorySelected) {
+        filterList = dataActive.filter((prod) => prod.category === categorySelected)
+      } else {
+        filterList = dataActive;
+      }
+    }
+
     setFilter(filterList);
   }
 
@@ -35,13 +65,61 @@ const Products = () => {
         <div>
           <h2>Featured Products</h2>
           <div className={styles.containerButtons}>
-            <Button onClick={() => setFilter(data)}>All</Button>
-            <Button onClick={() => filterProducts("Pants")}>Pants</Button>
-            <Button onClick={() => filterProducts("Shirts")}>Shirts</Button>
-            <Button onClick={() => filterProducts("jewelery")}>Jewelery</Button>
-            <Button onClick={() => filterProducts("electronics")}>Electronics</Button>
+            <FormControl>
+              <InputLabel id="category-label" >Category</InputLabel>
+              <Select
+                id='category'
+                labelId='category-label'
+                label='Category'
+                placeholder='Category'
+                className={styles.select}
+                value={categorySelected}
+                onChange={(e) => setCategorySelected(e.target.value)}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {[...categoryList].map((cat) => {
+                  return (
+                    <MenuItem
+                      key={cat}
+                      value={cat}
+                    >
+                      {cat}
+                    </MenuItem>)
+                })}
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel id="brand-label" >Brand</InputLabel>
+              <Select
+                id='brand'
+                labelId='brand-label'
+                label='Brand'
+                placeholder='Brand'
+                className={styles.select}
+                value={brandSelected}
+                onChange={(e) => setBrandSelected(e.target.value)}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {[...brandList].map((br) => {
+                  return (
+                    <MenuItem
+                      key={br}
+                      value={br}
+                    >
+                      {br}
+                    </MenuItem>)
+                })}
+              </Select>
+            </FormControl>
+            <Button variant="contained" onClick={() => filterProducts()}>Apply Filters</Button>
+            <Button variant="outlined" onClick={() => setFilter(dataActive)}>Clear Filters</Button>
           </div>
         </div>
+
         {mounted && (
           <div className={styles.containerCards}>
             {filter.map((product) => {
@@ -65,14 +143,14 @@ const Products = () => {
             </div>
           </div>
           <div className={styles.condition}>
-          <i className="fa-solid fa-percent fa-2xl"></i>
+            <i className="fa-solid fa-percent fa-2xl"></i>
             <div>
               <h5>discount</h5>
               <p>Get 15% OFF cash payment</p>
             </div>
           </div>
         </div>
-      </section>
+      </section >
     </>
   )
 };

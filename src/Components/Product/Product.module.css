@@ -13,7 +13,7 @@
 }
 
 .containerImg img {
-    max-width: 64rem;
+    max-width: 32rem;
     max-height: 32rem;
     /* min-width: 24rem; */
 }
@@ -41,6 +41,7 @@
 }
 
 .containerInfo h1 {
+    text-transform: capitalize;
     color: #000b4ddc;
     margin: 0;
 }
@@ -53,6 +54,7 @@
 
 .brand {
     font-weight: 600;
+    text-transform: capitalize;
 }
 
 .inStock {
@@ -79,6 +81,7 @@
 
 .description {
     color: #303030;
+    text-transform: capitalize;
 }
 
 .containerButtons {

@@ -20,6 +20,7 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
+  text-transform: capitalize;
 }
 
 .card img {
@@ -29,7 +30,8 @@
 }
 
 .price {
-  color: #808080;
+  color: #021581;
+  font-weight: 800;
   font-size: 1.5rem;
   padding: 0.3rem 0;
   margin: 0;
@@ -38,6 +40,7 @@
 .description {
   text-align: center;
   font-size: 0.8rem;
+  text-transform: capitalize;
 }
 
 .category {
@@ -46,6 +49,17 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
+  text-transform: capitalize;
+}
+
+.rating {
+  padding: 0.8rem 0;
+}
+
+.rating p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #faaf00;
 }
 
 .card button:hover {
