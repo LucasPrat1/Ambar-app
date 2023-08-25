@@ -1,17 +1,15 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 import styles from './editProduct.module.css'
 import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions'
 import { addProduct, editProduct } from '../../redux/products/thunks'
-import { Button, TextField, Switch, FormControlLabel, Rating } from '@mui/material'
+import { Button, TextField, Switch, FormControlLabel, Slider } from '@mui/material'
 
 const EditProduct = ({ selectedProd, setShowModal }) => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   const schema = joi.object({
     name: joi.string()
@@ -45,10 +43,10 @@ const EditProduct = ({ selectedProd, setShowModal }) => {
       .required(),
     description: joi.string()
       .min(3)
-      .max(60)
+      .max(150)
       .messages({
-        'string.min': 'Name is too short',
-        'string.max': 'Name is too long',
+        'string.min': 'Description is too short',
+        'string.max': 'Description is too long',
         'string.empty': 'This field is required'
       })
       .required(),
@@ -97,9 +95,8 @@ const EditProduct = ({ selectedProd, setShowModal }) => {
   });
 
   const onSubmit = async (data) => {
-    console.log('data', data)
     try {
-      if (selectedProd) {
+      if (Object.keys(selectedProd).length !== 0) {
         // EDIT
         if (window.confirm('Do you want to save changes?')) {
           const resp = await dispatch(editProduct(data, selectedProd._id));
@@ -139,7 +136,7 @@ const EditProduct = ({ selectedProd, setShowModal }) => {
 
   return (
     <form className={styles.form}>
-      <h3>{selectedProd?.name ? `EDIT PRODUCT: ${selectedProd.name.toUpperCase()} ` : 'Add New Product'} </h3>
+      <h3>{selectedProd?.name ? `EDIT PRODUCT: ${selectedProd.name.toUpperCase()} ` : 'ADD NEW PRODUCT'} </h3>
 
       <div className={styles.containerInput}>
         <TextField
@@ -220,10 +217,15 @@ const EditProduct = ({ selectedProd, setShowModal }) => {
 
         <FormControlLabel
           control={
-            <Rating
-              name="rating"
-              {...register("rating")}
+            <Slider
+              name='rating'
+              marks
+              max={5}
+              min={1}
+              size="small"
+              valueLabelDisplay="on"
               defaultValue={selectedProd?.rating}
+              {...register("rating")}
             />
           }
           label="Rating"
