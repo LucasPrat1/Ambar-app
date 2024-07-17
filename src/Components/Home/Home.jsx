@@ -7,7 +7,7 @@ const Home = () => {
 		<>
 			<section className={styles.container}>
 				<div className={styles.containerText} >
-					<h1>New season arrivals</h1>
+					<h1>Ambar aromas</h1>
 				</div>
 			</section>
 			<Products />

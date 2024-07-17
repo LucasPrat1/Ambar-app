@@ -90,21 +90,28 @@ export const deleteOrder = (id) => {
   };
 };
 
-export const editProduct = (order) => {
+export const editOrder = (order, _id) => {
   return async (dispatch) => {
     dispatch(editOrderPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/orders/${order._id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/orders/${_id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
         },
         body: JSON.stringify({
-          order
+          user: order.user,
+          deliveryOptions: order.deliveryOptions,
+          deliveryAddress: order.deliveryAddress,
+          isDelivered: order.isDelivered,
+          paymentOptions: order.paymentOptions,
+          isPaid: order.isPaid,
+          total: order.total,
+          items: order.items,
         })
       });
       const res = await response.json();
-      dispatch(editOrderSuccess(res));
+      dispatch(editOrderSuccess(res.data));
       return { error: false, message: res.message, data: res.data };
     } catch (error) {
       dispatch(editOrderError(error));

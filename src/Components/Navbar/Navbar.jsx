@@ -60,11 +60,14 @@ const Navbar = () => {
                           <i className="fa-solid fa-user"></i> {nameCap}
                         </Button>
                       </Link>
-                      <Link to="/cart">
-                        <Button className={styles.navButton}>
-                          <i className="fa-solid fa-shopping-cart"></i>  Cart ({cart.length})
-                        </Button>
-                      </Link>
+
+                      {!auth?.user?.isAdmin &&
+                        <Link to="/cart">
+                          <Button className={styles.navButton}>
+                            <i className="fa-solid fa-shopping-cart"></i>  Cart ({cart.length})
+                          </Button>
+                        </Link>
+                      }
 
                       {auth?.user?.isAdmin &&
                         <div className={styles.dropAdmin}>
@@ -96,9 +99,13 @@ const Navbar = () => {
                         <Link to={`/profile/${auth.user.firebaseUid}`}>
                           <i className="fa-solid fa-user"></i> {nameCap}
                         </Link>
-                        <Link to="/cart">
-                          <i className="fa-solid fa-shopping-cart"></i>  Cart ({cart.length})
-                        </Link>
+                        {!auth?.user?.isAdmin &&
+                          <Link to="/cart">
+                            <Button className={styles.navButton}>
+                              <i className="fa-solid fa-shopping-cart"></i>  Cart ({cart.length})
+                            </Button>
+                          </Link>
+                        }
 
                         {auth?.user?.isAdmin &&
                           <div className={styles.dropAdmin}>

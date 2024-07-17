@@ -149,9 +149,9 @@ const Checkout = ({ total }) => {
       </Modal>
       <div>
         <form className={styles.form}>
-          <h3>finalize your purchase</h3>
+          <h3>finalice su compra</h3>
           <div className={styles.containerUserInfo}>
-            <h4>User Info</h4>
+            <h4>Información Personal</h4>
             <Input
               type={'text'}
               name={'name'}
@@ -172,7 +172,7 @@ const Checkout = ({ total }) => {
               error={errors.email?.message} />
           </div>
           <div className={styles.containerDeliveryInfo}>
-            <h4>Delivery Info</h4>
+            <h4>Datos de Entrega</h4>
             <Input
               type={'radio'}
               name={'deliveryOptions'}
@@ -197,7 +197,7 @@ const Checkout = ({ total }) => {
             )}
           </div>
           <div className={styles.containerPaidInfo}>
-            <h4>Payment Info</h4>
+            <h4>Formas de Pago</h4>
             <Input
               type={'select'}
               name={'paymentOptions'}
@@ -207,7 +207,7 @@ const Checkout = ({ total }) => {
               error={errors.paymentOptions?.message} />
           </div>
           <Button backgroundColor={'#030453'} color={'#fff'} onClick={handleSubmit(onSubmit)}>
-            Confirm
+            Confirmar
           </Button>
         </form>
       </div>

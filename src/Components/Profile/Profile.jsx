@@ -3,13 +3,13 @@ import styles from './profile.module.css'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Input, Loader, Modal, Alert } from '../Shared';
-import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useForm } from 'react-hook-form';
 import { editUser } from '../../redux/auth/thunks';
 import { getOrders } from '../../redux/order/thunks';
 import { PDFViewer } from '@react-pdf/renderer';
 import OrderPDF from '../OrderPDF/OrderPDF';
+import { userSchema } from '../../Schemas/schemas';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -44,67 +44,13 @@ const Profile = () => {
     setOrdersFilter(orders.filter((order) => order.user._id === user._id));
   }, [orders, user._id])
 
-  const schema = joi.object({
-    name: joi
-      .string()
-      .regex(/^[a-zA-Z_ ]*$/)
-      .min(3)
-      .max(30)
-      .messages({
-        'string.pattern.base': 'Name must contain only letters',
-        'string.min': 'Name is too short',
-        'string.max': 'Name is too long',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-    phone: joi.number().min(1000000000).max(9999999999).required()
-      .messages({
-        'number.min': 'Phone number must be 10 digits long',
-        'number.max': 'Phone number must be no more than 10 digits long',
-      }),
-    email: joi
-      .string()
-      .regex(
-        /^[a-z0-9]+(?:\.[a-z0-9]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
-      )
-      .messages({
-        'string.pattern.base': 'Invalid email',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-    city: joi
-      .string()
-      .regex(/^[a-zA-Z0-9\s]*$/)
-      .min(3)
-      .max(30)
-      .messages({
-        'string.pattern.base': 'City must contain only letters and numbers',
-        'string.min': 'City is too short',
-        'string.max': 'City is too long',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-    address: joi
-      .string()
-      .regex(/^[a-zA-Z0-9\s]*$/)
-      .min(3)
-      .max(30)
-      .messages({
-        'string.pattern.base': 'Address must contain only letters and numbers',
-        'string.min': 'Address is too short',
-        'string.max': 'Address is too long',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-  });
-
   const {
     handleSubmit,
     register,
     formState: { errors }
   } = useForm({
     mode: 'onChange',
-    resolver: joiResolver(schema),
+    resolver: joiResolver(userSchema),
     defaultValues: {
       name: user.name,
       phone: user.phone,

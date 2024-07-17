@@ -1,0 +1,43 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.containerInput {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+}
+
+.inputUser, .inputText , .inputStatus {
+    width: 100%;
+}
+
+@media screen and (max-width: 6000px) {
+    .containerInput {
+        justify-content: center;
+    }
+    .inputUser {
+        width: 45%;
+        min-width: 10rem;
+        max-width: 28rem;
+    }
+
+    .inputText {
+        width: 40%;
+        min-width: 6rem;
+        max-width: 20rem;
+    }
+
+    .inputStatus {
+        width: 10%;
+        min-width: 3rem;
+        max-width: 6rem;
+    }
+  }

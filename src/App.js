@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import { setAuth } from './redux/auth/thunks'
 import { cleanUser } from './redux/auth/actions';
 import { Alert } from './Components/Shared';
+import ABMOrders from './Components/ABMOrders/ABMOrders';
 
 function App() {
   const auth = getAuth();
@@ -51,6 +52,7 @@ function App() {
           <Route exact path='/profile/:uid' element={<Profile />} />
           <Route exact path='/order/:id' element={<OrderPDF />} />
           <Route exact path='/abmproducts' element={<ABMProducts />} />
+          <Route exact path='/abmorders' element={<ABMOrders />} />
         </Routes>
       </main>
       <Footer />

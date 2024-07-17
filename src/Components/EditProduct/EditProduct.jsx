@@ -1,78 +1,15 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form';
-import joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 import styles from './editProduct.module.css'
 import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/actions'
 import { addProduct, editProduct } from '../../redux/products/thunks'
 import { Button, TextField, Switch, FormControlLabel, Slider } from '@mui/material'
+import { productSchema } from '../../Schemas/schemas';
 
 const EditProduct = ({ selectedProd, setShowModal }) => {
   const dispatch = useDispatch();
-
-  const schema = joi.object({
-    name: joi.string()
-      .min(3)
-      .max(30)
-      .messages({
-        'string.min': 'Name is too short',
-        'string.max': 'Name is too long',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-    brand: joi.string()
-      .min(3)
-      .max(30)
-      .messages({
-        'string.min': 'Brand is too short',
-        'string.max': 'Brand is too long',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-    category: joi.string()
-      .regex(/^[a-zA-Z_ ]*$/)
-      .min(3)
-      .max(30)
-      .messages({
-        'string.pattern.base': 'Category must contain only letters',
-        'string.min': 'Category is too short',
-        'string.max': 'Category is too long',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-    description: joi.string()
-      .min(3)
-      .max(150)
-      .messages({
-        'string.min': 'Description is too short',
-        'string.max': 'Description is too long',
-        'string.empty': 'This field is required'
-      })
-      .required(),
-    price: joi.number()
-      .positive()
-      .precision(2)
-      .required(),
-    stock: joi.number()
-      .integer()
-      .min(0)
-      .required()
-      .messages({
-        'number.min': 'Stock cannot be less than 0',
-      }),
-    rating: joi.number()
-      .min(0)
-      .max(5)
-      .required()
-      .messages({
-        'number.min': 'Rating must be greater than 0',
-        'number.max': 'Rating must be less than 5',
-      }),
-    status: joi.boolean()
-      .required(),
-    image: joi.any()
-  });
 
   const {
     handleSubmit,
@@ -91,7 +28,7 @@ const EditProduct = ({ selectedProd, setShowModal }) => {
       status: selectedProd.status,
       // image: selectedProd.image,
     },
-    resolver: joiResolver(schema),
+    resolver: joiResolver(productSchema),
   });
 
   const onSubmit = async (data) => {

@@ -63,7 +63,7 @@ const Products = () => {
       <Loader show={isLoading} />
       <section className={styles.products}>
         <div>
-          <h2>Featured Products</h2>
+          <h2>Nuestros Productos</h2>
           <div className={styles.containerButtons}>
             <FormControl>
               <InputLabel id="category-label" >Category</InputLabel>
@@ -131,22 +131,22 @@ const Products = () => {
           <div className={styles.condition}>
             <i className="fa-solid fa-truck-fast fa-2xl"></i>
             <div>
-              <h5>free shipping</h5>
-              <p>for purchases over $5000</p>
+              <h5>Envío Gratis</h5>
+              <p>Compra mayor a $10.000</p>
             </div>
           </div>
           <div className={styles.condition}>
             <i className="fa-regular fa-credit-card fa-2xl"></i>
             <div>
-              <h5>interest free installments</h5>
-              <p>With all credit cards</p>
+              <h5>3 cuotas sin interés</h5>
+              <p>Con tarjeta de crédito</p>
             </div>
           </div>
           <div className={styles.condition}>
             <i className="fa-solid fa-percent fa-2xl"></i>
             <div>
-              <h5>discount</h5>
-              <p>Get 15% OFF cash payment</p>
+              <h5>Descuento</h5>
+              <p>10% OFF efectivo</p>
             </div>
           </div>
         </div>
