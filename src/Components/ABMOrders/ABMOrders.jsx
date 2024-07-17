@@ -40,9 +40,14 @@ const ABMOrders = () => {
       field: 'user',
       headerName: 'Name',
       flex: 1,
-      renderCell: (params) => {return params.value.name}
+      renderCell: (params) => { return params.value.name }
     },
-    { field: 'createdAt', headerName: 'Date', flex: 1 },
+    {
+      field: 'createdAt',
+      headerName: 'Date',
+      renderCell: (params) => { return params.value.slice(0,10) },
+      flex: 1,
+    },
     { field: 'deliveryOptions', headerName: 'Delivery Options', flex: 1 },
     {
       field: 'isDelivered',
@@ -82,7 +87,7 @@ const ABMOrders = () => {
               variant="contained"
               size="small"
               startIcon={<i className="fa-solid fa-circle-plus fa-xs" />}
-              // onClick={() => { setSelectedOrder({}); setShowModal(true) }}
+            // onClick={() => { setSelectedOrder({}); setShowModal(true) }}
             >
               Add
             </Button>

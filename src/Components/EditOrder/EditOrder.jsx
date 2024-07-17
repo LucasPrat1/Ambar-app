@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form';
 import { orderEditSchema } from '../../Schemas/schemas';
@@ -8,9 +8,16 @@ import { setMessageAlert, setShowAlert, setTypeAlert } from '../../redux/alert/a
 import { Button, TextField, Switch, FormControlLabel } from '@mui/material'
 import { addOrder, editOrder } from '../../redux/order/thunks';
 import ItemsTable from './ItemsTable';
+import { Modal } from '../Shared';
+import { PDFViewer } from '@react-pdf/renderer';
+import OrderPDF from '../OrderPDF/OrderPDF';
 
 const EditOrder = ({ selectedOrder, setShowModal }) => {
   const dispatch = useDispatch();
+
+  const [showModalPDF, setShowModalPDF] = useState(false);
+  const [childrenModalPDF, setChildrenModalPDF] = useState('');
+
 
   const {
     handleSubmit,
@@ -81,8 +88,24 @@ const EditOrder = ({ selectedOrder, setShowModal }) => {
     }
   }
 
+  const onClick = (order) => {
+    setChildrenModalPDF(
+      <PDFViewer width={'100%'} height={'100%'}>
+        <OrderPDF order={order} />
+      </PDFViewer>
+    )
+    setShowModalPDF(true)
+  }
+
   return (
     <form className={styles.form}>
+      <Modal
+        show={showModalPDF}
+        handleClose={() => { setShowModalPDF(false) }}
+        size={{ width: "100%", height: "100%" }}
+      >
+        {childrenModalPDF}
+      </Modal>
       <h3>{selectedOrder?._id ? `EDIT ORDER NUM: ${selectedOrder._id} ` : 'ADD NEW ORDER'} </h3>
 
       Comprador:
@@ -226,10 +249,13 @@ const EditOrder = ({ selectedOrder, setShowModal }) => {
       </div>
 
       <div className={styles.containerInput} >
-        <Button variant="contained" color='error' size="small" onClick={() => setShowModal(false)} className={styles.inputUser}>
+        <Button variant="contained" size="small" onClick={() => onClick(selectedOrder)} className={styles.inputStatus}>
+          Imprimir
+        </Button>
+        <Button variant="contained" color='error' size="small" onClick={() => setShowModal(false)} className={styles.inputText}>
           Cancelar
         </Button>
-        <Button variant="contained" color='success' size="small" onClick={handleSubmit(onSubmit)} className={styles.inputUser}>
+        <Button variant="contained" color='success' size="small" onClick={handleSubmit(onSubmit)} className={styles.inputText}>
           Confirmar
         </Button>
       </div>

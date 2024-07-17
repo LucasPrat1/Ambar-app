@@ -19,7 +19,7 @@
     width: 100%;
 }
 
-@media screen and (max-width: 6000px) {
+@media screen and (min-width: 600px) {
     .containerInput {
         justify-content: center;
     }

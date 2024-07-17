@@ -25,9 +25,10 @@ export const getOrdersSuccess = (data) => {
     payload: data
   };
 };
-export const getOrderIdSuccess = () => {
+export const getOrderIdSuccess = (data) => {
   return {
     type: GET_ORDERID_SUCCESS,
+    payload: data
   };
 };
 export const getOrdersError = () => {

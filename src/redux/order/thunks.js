@@ -35,7 +35,7 @@ export const getOrdersId = (id) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/orders/${id}`);
       const res = await response.json();
-      dispatch(getOrderIdSuccess());
+      dispatch(getOrderIdSuccess(res.data));
       return { error: false, message: res.message, data: res.data };
     } catch (error) {
       dispatch(getOrdersError());
